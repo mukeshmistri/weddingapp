@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { Preloader } from "@/components/wedding/preloader";
 import { Envelope } from "@/components/wedding/envelope";
-import { Swagatam } from "@/components/wedding/swagatam";
 import { Curtain } from "@/components/wedding/curtain";
 import { MusicButton } from "@/components/wedding/music-button";
 import { NavDots } from "@/components/wedding/nav-dots";
@@ -16,7 +15,7 @@ import { EventsSection } from "@/components/wedding/events-section";
 import { RSVPSection } from "@/components/wedding/rsvp-section";
 import { Footer } from "@/components/wedding/footer";
 
-type AppStage = "preloader" | "envelope" | "swagatam" | "curtain" | "main";
+type AppStage = "preloader" | "envelope" | "curtain" | "main";
 
 export default function WeddingInvitation() {
   const [stage, setStage] = useState<AppStage>("preloader");
@@ -30,15 +29,11 @@ export default function WeddingInvitation() {
   }, []);
 
   const handleEnvelopeComplete = useCallback(() => {
-    setStage("swagatam");
+    setStage("curtain");
   }, []);
 
   const handlePlayMusic = useCallback(() => {
     setIsMusicPlaying(true);
-  }, []);
-
-  const handleEnterCelebration = useCallback(() => {
-    setStage("curtain");
   }, []);
 
   const handleCurtainComplete = useCallback(() => {
@@ -65,9 +60,6 @@ export default function WeddingInvitation() {
         onComplete={handleEnvelopeComplete}
         onPlayMusic={handlePlayMusic}
       />
-
-      {/* Swagatam (Welcome) */}
-      <Swagatam isVisible={stage === "swagatam"} onEnter={handleEnterCelebration} />
 
       {/* Curtain */}
       <Curtain isOpen={stage === "curtain" || stage === "main"} onComplete={handleCurtainComplete} />

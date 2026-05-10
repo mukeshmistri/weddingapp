@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { weddingConfig } from "@/lib/wedding-config";
-import { MandapIcon, EnvelopeIcon, SparkleIcon } from "./wedding-icons";
+import { MandapIcon, EnvelopeIcon, SparkleIcon, NamasteIcon } from "./wedding-icons";
 
 interface EnvelopeProps {
   isVisible: boolean;
@@ -11,7 +11,7 @@ interface EnvelopeProps {
 }
 
 export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) {
-  const [tapState, setTapState] = useState(0); // 0 = initial, 1 = flipped, 2 = done
+  const [phase, setPhase] = useState<"closed" | "flipping" | "revealed">("closed");
   const [isGone, setIsGone] = useState(false);
   const [sparkles, setSparkles] = useState<Array<{ id: number; left: number; color: string; duration: number; delay: number; size: number }>>([]);
 
@@ -33,15 +33,21 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
   }, [isVisible]);
 
   const handleTap = useCallback(() => {
-    if (tapState === 0) {
-      setTapState(1);
-    } else if (tapState === 1) {
-      setTapState(2);
-      setIsGone(true);
+    if (phase === "closed") {
+      setPhase("flipping");
       onPlayMusic();
-      setTimeout(onComplete, 600);
     }
-  }, [tapState, onComplete, onPlayMusic]);
+  }, [phase, onPlayMusic]);
+
+  const handleFlipEnd = useCallback(() => {
+    if (phase !== "flipping") return;
+
+    setPhase("revealed");
+    window.setTimeout(() => {
+      setIsGone(true);
+      window.setTimeout(onComplete, 520);
+    }, 900);
+  }, [phase, onComplete]);
 
   if (!isVisible && !isGone) return null;
 
@@ -71,13 +77,16 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
 
       {/* Envelope wrapper */}
       <div
-        className="text-center cursor-pointer z-10 p-3 w-full max-w-[300px]"
+        className="text-center z-10 p-3 w-full max-w-[320px]"
         style={{ perspective: "1000px" }}
-        onClick={handleTap}
       >
         {/* Card */}
         <div
-          className={`w-[240px] h-[330px] mx-auto mb-3 relative max-w-[82vw] envelope-card ${tapState >= 1 ? "flipped" : ""}`}
+          className={`w-[240px] h-[330px] mx-auto mb-3 relative max-w-[82vw] envelope-card ${phase !== "closed" ? "flipped" : ""}`}
+          onClick={handleTap}
+          onTransitionEnd={handleFlipEnd}
+          role="button"
+          aria-label="Open invitation"
         >
           {/* Front */}
           <div
@@ -123,7 +132,7 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
             <div className="w-[70px] h-[1px] my-2.5" style={{ background: "linear-gradient(90deg, transparent, var(--gold), transparent)" }} />
 
             <p className="font-sans-alt text-[0.45rem] tracking-[2px] uppercase animate-pulse-opacity" style={{ color: "var(--gl)", opacity: 0.5 }}>
-              Tap to Open
+              Tap to Begin
             </p>
 
             {/* Seal */}
@@ -148,14 +157,17 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
               boxShadow: "0 12px 45px rgba(0,0,0,.5)",
             }}
           >
-            <p className="font-display text-xl mb-0.5" style={{ color: "var(--td)" }}>
-              You&apos;re Invited!
+            <div className="mb-2 animate-glow flex justify-center">
+              <NamasteIcon className="w-9 h-9" aria={{ label: "Welcome hands" }} />
+            </div>
+            <p className="font-display text-3xl mb-0.5" style={{ color: "var(--td)" }}>
+              Swaagatam
             </p>
             <p className="font-sans-alt text-[0.38rem] tracking-[2px] uppercase mb-2" style={{ color: "var(--gold)" }}>
-              Please join us
+              Welcome to our celebration
             </p>
 
-            <div className="font-display text-[1.8rem] leading-tight" style={{ color: "var(--td)" }}>
+            <div className="font-display text-[1.65rem] leading-tight" style={{ color: "var(--td)" }}>
               {bride}
               <span className="block text-base" style={{ color: "var(--gold)" }}>&</span>
               {groom}
@@ -164,11 +176,11 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
             <div className="w-[60px] h-[1px] my-2" style={{ background: "linear-gradient(90deg, transparent, var(--gold), transparent)" }} />
 
             <p className="font-body text-[0.72rem] italic text-center max-w-[170px] leading-relaxed" style={{ color: "var(--tm)" }}>
-              &ldquo;Together with our families, we invite you to celebrate our wedding day&rdquo;
+              Opening your invitation...
             </p>
 
             <p className="absolute bottom-2 font-sans-alt text-[0.38rem] tracking-[2px] uppercase animate-pulse-opacity" style={{ color: "var(--gold)" }}>
-              ↓ Tap again ↓
+              Please wait
             </p>
           </div>
         </div>
@@ -176,7 +188,7 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
         {/* Instruction */}
         <p className="font-sans-alt text-[0.6rem] tracking-[2px] uppercase animate-pulse-opacity z-10 flex items-center justify-center gap-1.5" style={{ color: "var(--gold)" }}>
           <SparkleIcon className="w-3 h-3" aria={{ hidden: true }} />
-          Tap the card
+          {phase === "closed" ? "Tap the card" : phase === "flipping" ? "Welcome unfolding" : "Entering celebration"}
           <SparkleIcon className="w-3 h-3" aria={{ hidden: true }} />
         </p>
       </div>
