@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { weddingConfig, type Event } from "@/lib/wedding-config";
 import { invitationConfig } from "@/lib/invitation.config";
+import { useResolvedArt } from "@/lib/custom-art";
 import { RotateCcw } from "lucide-react";
 import {
   MusicNoteIcon,
@@ -37,6 +38,9 @@ function ColorSwatch({ color }: { color: string }) {
 
 function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [iconImageError, setIconImageError] = useState(false);
+  const { src: eventArtworkSrc } = useResolvedArt(event.artworkId);
+  const iconSizeClass = event.iconSizeClass ?? invitationConfig.events.iconSizeClass;
 
   const openMap = (e: React.MouseEvent, address: string) => {
     e.stopPropagation();
@@ -62,17 +66,27 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
       >
         {/* FRONT SIDE - Event Details */}
         <div
-          className="absolute inset-0 bg-white rounded-xl overflow-hidden"
+          className="absolute inset-0 bg-white rounded-3xl overflow-hidden"
           style={{
+            backgroundImage: eventArtworkSrc ? `url('${eventArtworkSrc}')` : 'none',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
-            border: "1px solid rgba(201,169,110,.08)",
-            boxShadow: "0 3px 18px rgba(0,0,0,.04)",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
           }}
         >
+          {/* Overlay for text readability */}
+          <div
+            className="absolute inset-0 rounded-3xl backdrop-blur-md"
+            style={{
+              background: eventArtworkSrc ? 'rgba(245, 238, 228, 0.82)' : 'rgba(245, 238, 228, 0.5)',
+            }}
+          />
+
           {/* Top accent line */}
           <span
-            className="absolute top-0 left-0 w-full h-[3px]"
+            className="absolute top-0 left-0 w-full h-[3px] z-10"
             style={{ 
               background: `linear-gradient(90deg, ${event.dressCode.colors[0]}, ${event.dressCode.colors[1]}, ${event.dressCode.colors[0]})` 
             }}
@@ -80,7 +94,7 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
 
           {/* Tap hint badge */}
           <div 
-            className="absolute top-3 right-3 px-2 py-1 rounded-full flex items-center gap-1 animate-pulse"
+            className="absolute top-3 right-3 px-2 py-1 rounded-full flex items-center gap-1 animate-pulse z-20"
             style={{ background: "rgba(201,169,110,.1)" }}
           >
             <span className="text-[0.5rem] font-sans-alt tracking-wider uppercase" style={{ color: "var(--gold-accent)" }}>
@@ -90,30 +104,43 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
           </div>
 
           {/* Main content */}
-          <div className="px-4 py-6 pt-10 text-center h-full flex flex-col justify-center">
-            <span className="block mb-3">{ICONS[event.icon] || <SparkleIcon className="w-14 h-14" />}</span>
-            <h3 className="font-heading text-2xl mb-1" style={{ color: "var(--charcoal)" }}>
-              {event.name}
-            </h3>
-            <p className="font-accent text-[0.65rem] tracking-[2px] mb-3" style={{ color: "var(--gold-accent)" }}>
-              {event.date}
-            </p>
-            <p className="font-sans-alt text-[0.72rem] mb-1" style={{ color: "var(--charcoal-light)" }}>
-              {event.time}
-            </p>
-            <p className="font-body text-lg font-semibold mt-2 mb-1" style={{ color: "var(--charcoal)" }}>
-              {event.venue}
-            </p>
-            <p className="text-[0.75rem] leading-snug mb-4 px-2" style={{ color: "var(--charcoal-muted)" }}>
-              {event.address}
-            </p>
+          <div className="absolute inset-0 px-4 py-6 pt-10 text-center h-full flex flex-col justify-center z-10 rounded-3xl">
+            <div className="max-w-xs mx-auto w-full">
+              <span className="block mb-3">
+                {event.iconSrc && !iconImageError ? (
+                  <img
+                    src={event.iconSrc}
+                    alt={event.name}
+                    className={`${iconSizeClass} mx-auto object-contain`}
+                    onError={() => setIconImageError(true)}
+                  />
+                ) : (
+                  ICONS[event.icon] || <SparkleIcon className={`${iconSizeClass} mx-auto`} />
+                )}
+              </span>
+              <h3 className="font-heading font-bold mb-1 text-zinc-800" style={{ fontSize: "clamp(1.25rem, 5vw, 1.875rem)" }}>
+                {event.name}
+              </h3>
+              <p className="font-accent tracking-[2px] mb-3 font-semibold text-zinc-700" style={{ fontSize: "clamp(0.5rem, 2vw, 0.65rem)" }}>
+                {event.date}
+              </p>
+              <p className="font-sans-alt mb-1 font-medium text-zinc-700" style={{ fontSize: "clamp(0.65rem, 2.5vw, 0.875rem)" }}>
+                {event.time}
+              </p>
+              <p className="font-body font-bold mt-2 mb-1 text-zinc-800" style={{ fontSize: "clamp(0.875rem, 3vw, 1.125rem)" }}>
+                {event.venue}
+              </p>
+              <p className="leading-snug mb-4 px-2 font-medium text-zinc-700" style={{ fontSize: "clamp(0.65rem, 2vw, 0.875rem)" }}>
+                {event.address}
+              </p>
+            </div>
 
             {/* Map button */}
             <div className="flex justify-center">
               <button
                 onClick={(e) => openMap(e, event.address)}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans-alt text-[0.55rem] tracking-[2px] uppercase transition-all duration-300 cursor-pointer hover:bg-[var(--gold-accent)] hover:text-white group"
-                style={{ background: "transparent", border: "1px solid var(--gold-accent)", color: "var(--gold-accent)" }}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans-alt text-[0.55rem] tracking-[2px] uppercase transition-all duration-300 cursor-pointer hover:bg-[var(--gold-accent)] hover:text-white group font-semibold"
+                style={{ background: "transparent", border: "1.5px solid var(--gold-accent)", color: "var(--gold-accent)" }}
               >
                 <MapPinIcon className="w-3.5 h-3.5 group-hover:[&_path]:fill-white transition-all" />
                 View Map
@@ -124,14 +151,13 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
 
         {/* BACK SIDE - Dress Code */}
         <div
-          className="absolute inset-0 rounded-xl overflow-hidden"
+          className="absolute inset-0 rounded-3xl overflow-hidden"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
             background: `linear-gradient(145deg, ${event.dressCode.colors[0]}15, white, ${event.dressCode.colors[1]}10)`,
-            border: "1px solid rgba(201,169,110,.15)",
-            boxShadow: "0 3px 18px rgba(0,0,0,.04)",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
           }}
         >
           {/* Top accent line */}
@@ -154,11 +180,11 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
           </div>
 
           {/* Dress code content */}
-          <div className="px-5 py-6 pt-10 text-center h-full flex flex-col">
-            <h3 className="font-heading text-xl mb-1" style={{ color: "var(--charcoal)" }}>
+          <div className="px-5 py-6 pt-10 text-center h-full flex flex-col max-w-xs mx-auto w-full">
+            <h3 className="font-heading font-bold mb-1 text-zinc-800" style={{ fontSize: "clamp(1rem, 4vw, 1.375rem)" }}>
               Dress Code
             </h3>
-            <p className="font-sans-alt text-[0.55rem] tracking-[2px] uppercase mb-3" style={{ color: "var(--gold-accent)" }}>
+            <p className="font-sans-alt tracking-[2px] uppercase mb-3 font-semibold text-zinc-700" style={{ fontSize: "clamp(0.48rem, 2vw, 0.65rem)" }}>
               {event.name}
             </p>
 
@@ -168,7 +194,7 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
                 className="px-3 py-1.5 rounded-full"
                 style={{ background: `${event.dressCode.colors[0]}20` }}
               >
-                <p className="font-sans-alt text-[0.65rem] font-semibold tracking-[1px]" style={{ color: event.dressCode.colors[0] }}>
+                <p className="font-sans-alt font-semibold tracking-[1px]" style={{ fontSize: "clamp(0.55rem, 2vw, 0.75rem)", color: event.dressCode.colors[0] }}>
                   {event.dressCode.theme}
                 </p>
               </div>
@@ -183,32 +209,32 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
             <div className="flex-1 flex flex-col justify-center gap-4 text-left">
               {/* Women's suggestion */}
               <div 
-                className="p-3 rounded-lg"
-                style={{ background: "rgba(255,255,255,.7)" }}
+                className="p-3 rounded-lg backdrop-blur-sm"
+                style={{ background: "rgba(255,255,255,.8)" }}
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <DressWomanIcon className="w-5 h-5" />
-                  <span className="font-sans-alt text-[0.55rem] font-bold tracking-[1.5px] uppercase" style={{ color: "var(--gold-accent)" }}>
+                  <span className="font-sans-alt font-bold tracking-[1.5px] uppercase text-zinc-800" style={{ fontSize: "clamp(0.45rem, 2vw, 0.625rem)" }}>
                     For Women
                   </span>
                 </div>
-                <p className="font-body text-[0.82rem] leading-relaxed pl-7" style={{ color: "var(--charcoal-light)" }}>
+                <p className="font-body leading-relaxed pl-7 text-zinc-700" style={{ fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)" }}>
                   {event.dressCode.suggestions.women}
                 </p>
               </div>
 
               {/* Men's suggestion */}
               <div 
-                className="p-3 rounded-lg"
-                style={{ background: "rgba(255,255,255,.7)" }}
+                className="p-3 rounded-lg backdrop-blur-sm"
+                style={{ background: "rgba(255,255,255,.8)" }}
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <DressManIcon className="w-5 h-5" />
-                  <span className="font-sans-alt text-[0.55rem] font-bold tracking-[1.5px] uppercase" style={{ color: "var(--gold-accent)" }}>
+                  <span className="font-sans-alt font-bold tracking-[1.5px] uppercase text-zinc-800" style={{ fontSize: "clamp(0.45rem, 2vw, 0.625rem)" }}>
                     For Men
                   </span>
                 </div>
-                <p className="font-body text-[0.82rem] leading-relaxed pl-7" style={{ color: "var(--charcoal-light)" }}>
+                <p className="font-body leading-relaxed pl-7 text-zinc-700" style={{ fontSize: "clamp(0.7rem, 2.5vw, 0.875rem)" }}>
                   {event.dressCode.suggestions.men}
                 </p>
               </div>
@@ -251,10 +277,10 @@ export function EventsSection() {
       style={{ background: "linear-gradient(180deg, var(--ivory), #F8F0E8, var(--ivory))" }}
     >
       <div className="max-w-[800px] w-full text-center relative z-[2]">
-        <h2 className="font-display text-5xl mb-1.5 reveal-element" style={{ color: "var(--charcoal)" }}>
+        <h2 className="font-display text-5xl mb-1.5 reveal-element font-bold" style={{ color: "var(--charcoal)", fontWeight: "800" }}>
           Wedding Events
         </h2>
-        <p className="font-sans-alt text-[0.58rem] tracking-[3px] uppercase mb-4" style={{ color: "var(--gold-accent)" }}>
+        <p className="font-sans-alt text-[0.58rem] tracking-[3px] uppercase mb-4 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
           Join Us in Celebration
         </p>
         <div className="text-center my-2 mb-3 text-base tracking-[8px] opacity-30" style={{ color: "var(--gold-accent)" }}>
@@ -264,10 +290,10 @@ export function EventsSection() {
         {/* Tap instruction */}
         <div 
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
-          style={{ background: "rgba(201,169,110,.08)", border: "1px dashed rgba(201,169,110,.3)" }}
+          style={{ background: "rgba(201,169,110,.1)", border: "1px solid rgba(201,169,110,.4)" }}
         >
           <TapFingerIcon className="w-5 h-5 animate-bounce-subtle" />
-          <p className="font-body text-sm" style={{ color: "var(--charcoal-light)" }}>
+          <p className="font-body text-sm font-medium" style={{ color: "var(--charcoal-light)" }}>
             Tap any card to see the dress code
           </p>
         </div>

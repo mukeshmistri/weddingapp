@@ -64,10 +64,14 @@ export function Swagatam({ isVisible, onEnter }: SwagatamProps) {
       </div>
 
       {/* Content */}
-      <div className="text-center z-10 animate-float-in p-4 w-full max-w-[340px]">
-        {/* Namaste icon */}
-        <div className="mb-1.5 animate-glow flex justify-center">
-          <NamasteIcon className="w-12 h-12" aria={{ label: "Welcome hands" }} />
+      <div className="text-center z-10 animate-float-in p-4 w-full">
+        {/* Logo */}
+        <div className="mb-4 animate-glow flex justify-center">
+          <img
+            src={weddingConfig.swagatamIcons.namasteIconSrc || "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloader.png"}
+            alt="Namaste Welcome"
+            className="w-32 h-32 md:w-40 md:h-40 object-contain"
+          />
         </div>
 
         {/* Title */}
@@ -103,7 +107,7 @@ export function Swagatam({ isVisible, onEnter }: SwagatamProps) {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <BrideGroomIcon className="w-20 h-20" aria={{ label: "Bride and groom" }} />
+              <BrideGroomIcon className="w-32 h-32" imageSrc={weddingConfig.swagatamIcons.brideGroomIconSrc} aria={{ label: "Bride and groom" }} />
             </div>
           )}
         </div>

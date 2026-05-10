@@ -10,24 +10,24 @@ export type CustomArtEntry = {
 
 export const customArtConfig = {
   heroEmblem: {
-    customSrc: null,
+    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/kalas.png",
     defaultSrc: "/art/mandap-icon.svg",
     size: {
       className: "w-8 h-8",
     },
   },
   cardEmblem: {
-    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MD.png",
+    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/couplewelcome.png",
     defaultSrc: "/art/mandap-icon.svg",
     size: {
       className: "w-8 h-8",
     },
   },
   preloaderIcon: {
-    customSrc: null,
+    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/welcome.png",
     defaultSrc: null,
     size: {
-      className: "w-8 h-8",
+      className: "w-32 h-32",
     },
   },
   brideIllustration: {
@@ -45,7 +45,7 @@ export const customArtConfig = {
     },
   },
   envelopeIcon: {
-    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MD.png",
+    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloaderv2.png",
     defaultSrc: null,
     size: {
       className: "w-5 h-5",
@@ -58,6 +58,48 @@ export const customArtConfig = {
   eventIconParty: {
     customSrc: null,
     defaultSrc: null,
+  },
+  sangeetEvent: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add sangeet event illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
+  haldiEvent: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add haldi event illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
+  weddingEvent: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add wedding ceremony illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
+  receptionEvent: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add reception event illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
+  upcomingEvent1: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add upcoming ceremony 1 illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
+  upcomingEvent2: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add upcoming ceremony 2 illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
   },
 } satisfies Record<string, CustomArtEntry>;
 

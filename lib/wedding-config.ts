@@ -16,16 +16,23 @@ export const weddingConfig = {
     couplePhoto: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDImage.png",
     bride: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/D2.png",
     groom: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/M2.png",
-    heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/FirstPage.jpeg",
+    heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InviteFirstPageV3.png",
   },
   audio: {
     bgMusic: "https://github.com/mukeshmistri/wedding-music/raw/refs/heads/main/WeddingMusicDemo.mp3",
+  },
+  swagatamIcons: {
+    namasteIconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloader.png", // set this to a PNG URL or local /art path for custom namaste icon
+    brideGroomIconSrc: null, // set this to a PNG URL or local /art path for custom bride/groom icon
   },
   events: [
     {
       id: "sangeet",
       name: "Sangeet Night",
       icon: "musical-note",
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/sangeet.png", // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "sangeetEvent",
       date: "August 8, 2026",
       time: "7:00 PM Onwards",
       venue: "Royal Ballroom",
@@ -41,8 +48,11 @@ export const weddingConfig = {
     },
     {
       id: "haldi-mehendi",
-      name: "Haldi & Mehendi",
+      name: "Haldi",
       icon: "flower",
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Haldi.png", // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "haldiEvent",
       date: "August 8, 2026",
       time: "11 AM - 5 PM",
       venue: "Garden Pavilion",
@@ -60,6 +70,9 @@ export const weddingConfig = {
       id: "wedding",
       name: "Wedding Ceremony",
       icon: "church",
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Wedding.png", // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "weddingEvent",
       date: "August 9, 2026",
       time: "10 AM - 2 PM",
       venue: "The Grand Mandap",
@@ -77,6 +90,9 @@ export const weddingConfig = {
       id: "reception",
       name: "Reception",
       icon: "party",
+      iconSrc: null, // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "receptionEvent",
       date: "August 9, 2026",
       time: "7:00 PM Onwards",
       venue: "Crystal Hall",
@@ -94,6 +110,9 @@ export const weddingConfig = {
       id: "coming-soon-1",
       name: "Upcoming Ceremony",
       icon: "party",
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloaderv2.png", // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "upcomingEvent1",
       date: "To be announced",
       time: "Details coming soon",
       venue: "Information will be shared",
@@ -111,6 +130,9 @@ export const weddingConfig = {
       id: "coming-soon-2",
       name: "More Celebrations",
       icon: "musical-note",
+      iconSrc: null, // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "upcomingEvent2",
       date: "To be announced",
       time: "Details coming soon",
       venue: "Information will be shared",

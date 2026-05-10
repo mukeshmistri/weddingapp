@@ -127,11 +127,11 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
               />
             </div>
 
-            <p className="font-accent text-[0.5rem] tracking-[3px] uppercase mb-2" style={{ color: "var(--gold-accent)" }}>
+            <p className="font-accent text-[0.5rem] tracking-[3px] uppercase mb-2 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
               Wedding Invitation
             </p>
 
-            <div className="font-display text-[1.7rem] text-white leading-tight">
+            <div className="font-display text-[1.7rem] text-white leading-tight font-bold">
               {bride}
               <span className="block text-lg my-[1px]" style={{ color: "var(--gold-accent)" }}>&</span>
               {groom}
@@ -139,7 +139,7 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
 
             <div className="w-[70px] h-[1px] my-2.5" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent), transparent)" }} />
 
-            <p className="font-sans-alt text-[0.45rem] tracking-[2px] uppercase animate-pulse-opacity" style={{ color: "var(--gold-border)", opacity: 0.5 }}>
+            <p className="font-sans-alt text-[0.45rem] tracking-[2px] uppercase animate-pulse-opacity font-semibold" style={{ color: "var(--gold-border)", opacity: 0.75 }}>
               Tap to Begin
             </p>
 
@@ -165,17 +165,21 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
               boxShadow: "0 12px 45px rgba(0,0,0,.5)",
             }}
           >
-            <div className="mb-2 animate-glow flex justify-center">
-              <NamasteIcon className="w-9 h-9" aria={{ label: "Welcome hands" }} />
+            <div className="mb-4 animate-glow flex justify-center">
+              <img
+                src={weddingConfig.swagatamIcons.namasteIconSrc || "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloader.png"}
+                alt="Namaste Welcome"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+              />
             </div>
-            <p className="font-display text-3xl mb-0.5" style={{ color: "var(--charcoal)" }}>
+            <p className="font-display text-3xl mb-0.5 font-bold" style={{ color: "var(--charcoal)", fontWeight: "800" }}>
               Swaagatam
             </p>
-            <p className="font-sans-alt text-[0.38rem] tracking-[2px] uppercase mb-2" style={{ color: "var(--gold-accent)" }}>
+            <p className="font-sans-alt text-[0.38rem] tracking-[2px] uppercase mb-2 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
               Welcome to our celebration
             </p>
 
-            <div className="font-display text-[1.65rem] leading-tight" style={{ color: "var(--charcoal)" }}>
+            <div className="font-display text-[1.65rem] leading-tight font-bold" style={{ color: "var(--charcoal)", fontWeight: "700" }}>
               {bride}
               <span className="block text-base" style={{ color: "var(--gold-accent)" }}>&</span>
               {groom}
@@ -183,18 +187,18 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
 
             <div className="w-[60px] h-[1px] my-2" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent), transparent)" }} />
 
-            <p className="font-body text-[0.72rem] italic text-center max-w-[170px] leading-relaxed" style={{ color: "var(--charcoal-light)" }}>
+            <p className="font-body text-[0.72rem] italic text-center max-w-[170px] leading-relaxed font-medium" style={{ color: "var(--charcoal)" }}>
               Opening your invitation...
             </p>
 
-            <p className="absolute bottom-2 font-sans-alt text-[0.38rem] tracking-[2px] uppercase animate-pulse-opacity" style={{ color: "var(--gold-accent)" }}>
+            <p className="absolute bottom-2 font-sans-alt text-[0.38rem] tracking-[2px] uppercase animate-pulse-opacity font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.9" }}>
               Please wait
             </p>
           </div>
         </div>
 
         {/* Instruction */}
-        <p className="font-sans-alt text-[0.6rem] tracking-[2px] uppercase animate-pulse-opacity z-10 flex items-center justify-center gap-1.5" style={{ color: "var(--gold-accent)" }}>
+        <p className="font-sans-alt text-[0.6rem] tracking-[2px] uppercase animate-pulse-opacity z-10 flex items-center justify-center gap-1.5 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
           <SparkleIcon className="w-3 h-3" aria={{ hidden: true }} />
           {phase === "closed" ? "Tap the card" : phase === "flipping" ? "Welcome unfolding" : "Entering celebration"}
           <SparkleIcon className="w-3 h-3" aria={{ hidden: true }} />
