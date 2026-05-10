@@ -27,7 +27,7 @@ export const invitationConfig = {
             ringAnimationDurations: {
                 thirdRing: "1.8s",
             },
-            namasteIconSize: "w-8 h-8",
+            namasteIconSize: "w-32 h-32",
         },
     },
     hero: {
@@ -61,6 +61,9 @@ export const invitationConfig = {
             heightClass: "h-[88px]",
         },
         opacityClass: "opacity-100",
+    },
+    events: {
+        iconSizeClass: "w-24 h-24",
     },
     emojis: {
         music: {

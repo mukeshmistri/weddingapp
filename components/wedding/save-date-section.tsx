@@ -71,10 +71,10 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
 
       {/* Content */}
       <div className="text-center w-full max-w-[580px] relative z-[2] mx-auto">
-        <h2 className="font-display text-5xl md:text-6xl leading-tight mb-1" style={{ color: "var(--charcoal)" }}>
+        <h2 className="font-display text-5xl md:text-6xl leading-tight mb-1 font-bold" style={{ color: "var(--charcoal)", fontWeight: "800", letterSpacing: "-0.5px" }}>
           Save the Date
         </h2>
-        <p className="font-sans-alt text-[0.52rem] tracking-[3px] uppercase mb-2 opacity-65" style={{ color: "var(--gold-accent)" }}>
+        <p className="font-sans-alt text-[0.52rem] tracking-[3px] uppercase mb-2 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
           Scratch each seal to reveal
         </p>
 
@@ -94,7 +94,7 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
             <span className="inline-flex animate-wiggle">
               <PointingFingerIcon className="w-5 h-5" aria={{ label: "Tap here" }} />
             </span>
-            <span className="text-[0.48rem] tracking-[2px] uppercase opacity-65" style={{ color: "var(--charcoal-light)" }}>
+            <span className="text-[0.48rem] tracking-[2px] uppercase font-semibold" style={{ color: "var(--charcoal)", opacity: "0.85" }}>
               {remainingCount === 3
                 ? "Scratch all 3 seals!"
                 : `${remainingCount} seal${remainingCount > 1 ? "s" : ""} left!`}
@@ -158,7 +158,7 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
               <div className="w-1 h-1 rotate-45 rounded-sm" style={{ background: "var(--gold-accent)" }} />
               <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, var(--gold-accent), transparent)" }} />
             </div>
-            <p className="font-display text-5xl md:text-6xl mb-2" style={{ color: "var(--green-accent)", fontWeight: "700", letterSpacing: "-0.5px" }}>
+            <p className="font-display text-5xl md:text-6xl mb-2 font-bold" style={{ color: "var(--green-accent)", fontWeight: "800", letterSpacing: "-0.5px" }}>
               {weddingConfig.dateDisplayFull}
             </p>
             <div className="flex items-center justify-center gap-1.5 opacity-30">
@@ -180,8 +180,8 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
         {allRevealed && (
           <button
             onClick={resetAll}
-            className="mt-6 px-5 py-1.5 rounded-full font-sans-alt text-[0.42rem] tracking-[2px] uppercase cursor-pointer transition-all duration-300 opacity-50 hover:opacity-100 inline-flex items-center gap-1.5 animate-reveal-scale"
-            style={{ background: "transparent", border: "1px solid rgba(201,169,110,.18)", color: "var(--gold-accent)" }}
+            className="mt-6 px-5 py-1.5 rounded-full font-sans-alt text-[0.42rem] tracking-[2px] uppercase cursor-pointer transition-all duration-300 opacity-75 hover:opacity-100 inline-flex items-center gap-1.5 animate-reveal-scale font-semibold"
+            style={{ background: "transparent", border: "1.5px solid rgba(201,169,110,.35)", color: "var(--gold-accent)" }}
           >
             <RefreshIcon className="w-4 h-4" aria={{ label: "Refresh" }} />
             Reveal Again

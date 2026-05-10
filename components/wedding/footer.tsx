@@ -37,24 +37,24 @@ export function Footer() {
         {invitationConfig.emojis.footer.ornament}
       </div>
 
-      <h2 className="font-display text-5xl mb-2" style={{ color: "var(--charcoal)" }}>
+      <h2 className="font-display text-5xl mb-2 font-bold" style={{ color: "var(--charcoal)", fontWeight: "800" }}>
         {bride} & {groom}
       </h2>
 
-      <p className="font-sans-alt text-sm tracking-[2px] mb-4" style={{ color: "var(--gold-accent)" }}>
+      <p className="font-sans-alt text-sm tracking-[2px] mb-4 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
         {hashtag}
       </p>
 
-      <p className="font-body text-base italic max-w-[380px] mx-auto mb-4 leading-relaxed" style={{ color: "var(--charcoal-light)" }}>
+      <p className="font-body text-base italic max-w-[380px] mx-auto mb-4 leading-relaxed font-medium" style={{ color: "var(--charcoal)" }}>
         &ldquo;In all the world, there is no heart for me like yours.&rdquo;
       </p>
 
       <button
         onClick={handleShare}
-        className="inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full font-sans-alt text-[0.55rem] tracking-[2px] uppercase cursor-pointer transition-all duration-300 mb-4"
+        className="inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full font-sans-alt text-[0.55rem] tracking-[2px] uppercase cursor-pointer transition-all duration-300 mb-4 font-semibold"
         style={{
           background: "transparent",
-          border: "1px solid var(--gold-accent)",
+          border: "1.5px solid var(--gold-accent)",
           color: "var(--gold-accent)",
         }}
         onMouseEnter={(e) => {

@@ -42,7 +42,7 @@ const cinzel = Cinzel({
 export const metadata: Metadata = {
   title: "Wedding Invitation - Deeksha & Mukesh",
   description:
-    "You are cordially invited to celebrate the wedding of Deeksha & Mukesh on July 20, 2026 at Awesome Place, Kolhapur",
+    "You are cordially invited to celebrate the wedding of Deeksha",
   keywords: ["wedding", "invitation", "Deeksha", "Mukesh", "celebration", "love"],
   authors: [{ name: "Deeksha & Mukesh" }],
   openGraph: {

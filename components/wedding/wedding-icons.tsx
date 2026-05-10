@@ -4,9 +4,12 @@
 // All icons replace emojis with elegant, hand-drawn vector art
 // Wedding-themed with proper accessibility and scalability
 
+import Image from "next/image";
+
 // Base icon props type
 interface IconProps {
   className?: string;
+  imageSrc?: string; // Optional: if provided, renders as Image instead of SVG
   aria?: {
     label?: string;
     hidden?: boolean;
@@ -15,7 +18,21 @@ interface IconProps {
 
 // SPIRITUAL & WELCOME ICONS
 
-export function NamasteIcon({ className = "w-10 h-10", aria = { label: "Namaste hands" } }: IconProps) {
+export function NamasteIcon({ className = "w-10 h-10", imageSrc, aria = { label: "Namaste hands" } }: IconProps) {
+  if (imageSrc) {
+    return (
+      <div className={className}>
+        <Image
+          src={imageSrc}
+          alt={aria.label || "Namaste icon"}
+          fill
+          className="object-contain"
+          onError={() => console.warn(`Failed to load image: ${imageSrc}`)}
+        />
+      </div>
+    );
+  }
+
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label={aria.label} aria-hidden={aria.hidden}>
       <defs>
@@ -44,7 +61,21 @@ export function NamasteIcon({ className = "w-10 h-10", aria = { label: "Namaste 
   );
 }
 
-export function BrideGroomIcon({ className = "w-10 h-10", aria = { label: "Bride and groom" } }: IconProps) {
+export function BrideGroomIcon({ className = "w-10 h-10", imageSrc, aria = { label: "Bride and groom" } }: IconProps) {
+  if (imageSrc) {
+    return (
+      <div className={className}>
+        <Image
+          src={imageSrc}
+          alt={aria.label || "Bride and groom icon"}
+          fill
+          className="object-contain"
+          onError={() => console.warn(`Failed to load image: ${imageSrc}`)}
+        />
+      </div>
+    );
+  }
+
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label={aria.label} aria-hidden={aria.hidden}>
       <defs>

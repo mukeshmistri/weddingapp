@@ -13,6 +13,9 @@ export function RSVPSection() {
     guests: "2",
     message: "",
   });
+  const [noClickCount, setNoClickCount] = useState(0);
+  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
+  const [noButtonText, setNoButtonText] = useState(invitationConfig.emojis.rsvp.declineLabel);
 
   const createConfetti = useCallback(() => {
     const colors = ["#C9A96E", "#F2D7D5", "#E8A0B8", "#E8D5A8", "#FFD700"];
@@ -35,6 +38,30 @@ export function RSVPSection() {
       setTimeout(() => c.remove(), 4000);
     }
   }, []);
+
+  const handleNoClick = useCallback(() => {
+    const newCount = noClickCount + 1;
+    setNoClickCount(newCount);
+    setNoButtonPos({
+      x: Math.random() * 40 - 20,
+      y: Math.random() * 40 - 20,
+    });
+    const funnyTexts = [
+      "😢 Decline",
+      "Are you sure?",
+      "Think again!",
+      "Come on!",
+      "Just say yes!",
+      "Okay, fine...",
+    ];
+    setNoButtonText(funnyTexts[Math.min(newCount - 1, funnyTexts.length - 1)]);
+    if (newCount >= 6) {
+      setFormData({ ...formData, attendance: "yes" });
+      setNoClickCount(0);
+      setNoButtonPos({ x: 0, y: 0 });
+      setNoButtonText(invitationConfig.emojis.rsvp.declineLabel);
+    }
+  }, [noClickCount, formData]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -72,10 +99,10 @@ export function RSVPSection() {
       style={{ background: "linear-gradient(180deg, #F8EFE6, #FBF7F2)" }}
     >
       <div className="max-w-[460px] w-full text-center relative z-[2]">
-        <h2 className="font-display text-5xl mb-1.5" style={{ color: "var(--green-accent)" }}>
+        <h2 className="font-display text-5xl mb-1.5 font-bold" style={{ color: "var(--green-accent)", fontWeight: "800" }}>
           RSVP
         </h2>
-        <p className="font-sans-alt text-[0.58rem] tracking-[3px] uppercase mb-6" style={{ color: "var(--charcoal-light)" }}>
+        <p className="font-sans-alt text-[0.58rem] tracking-[3px] uppercase mb-6 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.85" }}>
           Kindly Respond
         </p>
         <div className="text-center my-2 mb-5 text-base tracking-[8px] opacity-30" style={{ color: "var(--gold-accent)" }}>
@@ -86,7 +113,7 @@ export function RSVPSection() {
           <form onSubmit={handleSubmit} className="mt-5 space-y-4">
             {/* Name */}
             <div className="text-left">
-              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1" style={{ color: "var(--charcoal)" }}>
+              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.9" }}>
                 Your Name
               </label>
               <input
@@ -106,7 +133,7 @@ export function RSVPSection() {
 
             {/* Email */}
             <div className="text-left">
-              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1" style={{ color: "var(--charcoal-light)" }}>
+              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.9" }}>
                 Email
               </label>
               <input
@@ -126,7 +153,7 @@ export function RSVPSection() {
 
             {/* Phone */}
             <div className="text-left">
-              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1" style={{ color: "var(--charcoal-light)" }}>
+              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.9" }}>
                 Phone
               </label>
               <input
@@ -145,7 +172,7 @@ export function RSVPSection() {
 
             {/* Attendance */}
             <div className="text-left">
-              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1" style={{ color: "var(--charcoal-light)" }}>
+              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.9" }}>
                 Attend?
               </label>
               <div className="flex gap-2">
@@ -168,30 +195,31 @@ export function RSVPSection() {
                   />
                   {invitationConfig.emojis.rsvp.acceptLabel}
                 </label>
-                <label
+                <button
+                  type="button"
+                  onClick={handleNoClick}
                   className={`flex-1 block py-2.5 text-center rounded-lg cursor-pointer transition-all duration-300 font-body text-base ${
                     formData.attendance === "no" ? "text-white" : ""
                   }`}
                   style={{
                     background: formData.attendance === "no" ? "var(--charcoal-muted)" : "rgba(255,255,255,.6)",
                     border: formData.attendance === "no" ? "2px solid var(--charcoal-muted)" : "2px solid var(--gold-border)",
+                    transform: `translate(${noButtonPos.x}px, ${noButtonPos.y}px)`,
                   }}
                 >
-                  <input
-                    type="radio"
-                    name="attendance"
-                    value="no"
-                    className="sr-only"
-                    onChange={() => setFormData({ ...formData, attendance: "no" })}
-                  />
-                  {invitationConfig.emojis.rsvp.declineLabel}
-                </label>
+                  {noButtonText}
+                </button>
               </div>
+              {noClickCount > 0 && (
+                <p className="text-[0.4rem] text-center mt-1 opacity-60" style={{ color: "var(--charcoal-light)" }}>
+                  Keep trying! 😄
+                </p>
+              )}
             </div>
 
             {/* Guests */}
             <div className="text-left">
-              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1" style={{ color: "var(--charcoal-light)" }}>
+              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.9" }}>
                 Guests
               </label>
               <select
@@ -214,7 +242,7 @@ export function RSVPSection() {
 
             {/* Message */}
             <div className="text-left">
-              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1" style={{ color: "var(--charcoal-light)" }}>
+              <label className="block font-sans-alt text-[0.52rem] tracking-[2px] uppercase mb-1 font-semibold" style={{ color: "var(--charcoal)", opacity: "0.9" }}>
                 {invitationConfig.emojis.rsvp.wishesLabel}
               </label>
               <textarea
@@ -232,7 +260,7 @@ export function RSVPSection() {
 
             <button
               type="submit"
-              className="inline-block px-10 py-3 rounded-full font-accent text-[0.72rem] tracking-[2px] uppercase text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5 mt-2.5"
+              className="inline-block px-10 py-3 rounded-full font-accent text-[0.72rem] tracking-[2px] uppercase text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5 mt-2.5 font-bold"
               style={{
                 background: "linear-gradient(135deg, var(--green-accent), #3D5540)",
                 boxShadow: "0 3px 14px rgba(79, 111, 82, 0.25)",
@@ -244,10 +272,10 @@ export function RSVPSection() {
         ) : (
           <div className="text-center py-5 animate-fade-up">
             <span className="text-5xl block mb-2.5">{invitationConfig.emojis.rsvp.success}</span>
-            <h3 className="font-display text-3xl mb-1" style={{ color: "var(--green-accent)" }}>
+            <h3 className="font-display text-3xl mb-1 font-bold" style={{ color: "var(--green-accent)", fontWeight: "800" }}>
               Thank You!
             </h3>
-            <p className="text-base" style={{ color: "var(--charcoal-light)" }}>
+            <p className="text-base font-medium" style={{ color: "var(--charcoal)" }}>
               Your RSVP received with love.
             </p>
           </div>

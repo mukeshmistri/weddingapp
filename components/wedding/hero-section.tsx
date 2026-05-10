@@ -10,6 +10,14 @@ interface HeroSectionProps {
   isDateRevealed: boolean;
 }
 
+// POSITIONING CONFIG - Easily adjust hero section position
+// verticalShift: positive = down, negative = up (in pixels)
+// horizontalShift: positive = right, negative = left (in pixels)
+const HERO_POSITIONING = {
+  verticalShift: -140,      // Change this to move section up/down
+  horizontalShift: 0,    // Change this to move section left/right
+};
+
 export function HeroSection({ isDateRevealed }: HeroSectionProps) {
   void isDateRevealed;
   const [parallaxY, setParallaxY] = useState(0);
@@ -66,7 +74,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
       <div
         className="text-center relative z-[5]"
         style={{
-          transform: `translateY(${parallaxY}px)`,
+          transform: `translate(${HERO_POSITIONING.horizontalShift}px, ${HERO_POSITIONING.verticalShift + parallaxY}px)`,
           opacity,
         }}
       >
@@ -106,7 +114,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
             "--hero-amp-desktop": invitationConfig.hero.names.ampersandFontSizeDesktop,
           } as React.CSSProperties}
         >
-          {bride}
+          {groom}
           <span
             className={`block ${invitationConfig.hero.names.ampersandMarginYClass}`}
             style={{
@@ -117,7 +125,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
           >
             &
           </span>
-          {groom}
+          {bride}
         </h1>
       </div>
 
