@@ -338,28 +338,85 @@ body {
 .animate-bounce-subtle { animation: bounce-subtle 1s ease infinite; }
 .animate-shimmer { animation: shimmer 2s linear infinite; }
 .animate-swing { animation: swing 2s ease-in-out infinite; }
+.animate-swing-2s { animation: swing 2s ease-in-out infinite; }
+.animate-swing-2s-05 { animation: swing 2s ease-in-out 0.5s infinite; }
 .animate-sparkle { animation: sparkle 1.5s ease-in-out infinite; }
-/* SVG Icon animations */
-.animate-[draw_0.5s_ease-out_forwards] { animation: draw 0.5s ease-out forwards; }
-.animate-[draw_0.6s_ease-out_forwards] { animation: draw 0.6s ease-out forwards; }
-.animate-[draw_0.8s_ease-out_forwards] { animation: draw 0.8s ease-out forwards; }
-.animate-[slideUp_0.5s_ease-out_0.3s_both] { animation: slideUp 0.5s ease-out 0.3s both; }
-.animate-[slideUp_0.6s_ease-out_0.3s_both] { animation: slideUp 0.6s ease-out 0.3s both; }
-.animate-[slideDown_0.5s_ease-out_0.2s_both] { animation: slideDown 0.5s ease-out 0.2s both; }
-.animate-[slideDown_0.6s_ease-out_0.3s_both] { animation: slideDown 0.6s ease-out 0.3s both; }
-.animate-[tiltLeft_2s_ease-in-out_infinite] { animation: tiltLeft 2s ease-in-out infinite; }
-.animate-[tiltRight_2s_ease-in-out_infinite] { animation: tiltRight 2s ease-in-out infinite; }
-.animate-[rise_1.5s_ease-in-out_infinite] { animation: rise 1.5s ease-in-out infinite; }
-.animate-[rise_1.5s_ease-in-out_0.3s_infinite] { animation: rise 1.5s ease-in-out 0.3s infinite; }
-.animate-[rise_1.5s_ease-in-out_0.6s_infinite] { animation: rise 1.5s ease-in-out 0.6s infinite; }
-.animate-[rise_1.5s_ease-in-out_0.2s_infinite] { animation: rise 1.5s ease-in-out 0.2s infinite; }
-.animate-[rise_1.5s_ease-in-out_0.5s_infinite] { animation: rise 1.5s ease-in-out 0.5s infinite; }
-.animate-[rise_1.5s_ease-in-out_0.8s_infinite] { animation: rise 1.5s ease-in-out 0.8s infinite; }
-.animate-[flicker_0.5s_ease-in-out_infinite_alternate] { animation: flicker 0.5s ease-in-out infinite alternate; }
-.animate-[flicker_0.3s_ease-in-out_0.1s_infinite_alternate] { animation: flicker 0.3s ease-in-out 0.1s infinite alternate; }
-.animate-[rotate_2s_linear_infinite] { animation: rotate 2s linear infinite; }
-.animate-[ripple_1.5s_ease-out_infinite] { animation: ripple 1.5s ease-out infinite; }
-.animate-[ripple_1.5s_ease-out_0.3s_infinite] { animation: ripple 1.5s ease-out 0.3s infinite; }
+.animate-sparkle-1s { animation: sparkle 1s ease-in-out infinite; }
+
+/* SVG Icon animations - custom classes */
+.animate-draw-05 { animation: draw 0.5s ease-out forwards; }
+.animate-draw-06 { animation: draw 0.6s ease-out forwards; }
+.animate-draw-06-01 { animation: draw 0.6s ease-out 0.1s both; }
+.animate-draw-06-02 { animation: draw 0.6s ease-out 0.2s both; }
+.animate-draw-08 { animation: draw 0.8s ease-out forwards; }
+.animate-draw-08-02 { animation: draw 0.8s ease-out 0.2s both; }
+.animate-draw-15 { animation: draw 1.5s ease-out forwards; }
+.animate-slide-up-04-01 { animation: slideUp 0.4s ease-out 0.1s both; }
+.animate-slide-up-05 { animation: slideUp 0.5s ease-out 0.3s both; }
+.animate-slide-up-06 { animation: slideUp 0.6s ease-out 0.3s both; }
+.animate-slide-up-06-inf { animation: slideUp 0.6s ease-in-out infinite; }
+.animate-slide-down-05 { animation: slideDown 0.5s ease-out 0.2s both; }
+.animate-slide-down-05-03 { animation: slideDown 0.5s ease-out 0.3s both; }
+.animate-slide-down-06 { animation: slideDown 0.6s ease-out 0.3s both; }
+.animate-slide-down-06-plain { animation: slideDown 0.6s ease-out forwards; }
+.animate-tilt-left { animation: tiltLeft 2s ease-in-out infinite; }
+.animate-tilt-right { animation: tiltRight 2s ease-in-out infinite; }
+.animate-rise { animation: rise 1.5s ease-in-out infinite; }
+.animate-rise-03 { animation: rise 1.5s ease-in-out 0.3s infinite; }
+.animate-rise-06 { animation: rise 1.5s ease-in-out 0.6s infinite; }
+.animate-rise-02 { animation: rise 1.5s ease-in-out 0.2s infinite; }
+.animate-rise-05 { animation: rise 1.5s ease-in-out 0.5s infinite; }
+.animate-rise-08 { animation: rise 1.5s ease-in-out 0.8s infinite; }
+.animate-flicker { animation: flicker 0.5s ease-in-out infinite alternate; }
+.animate-flicker-03 { animation: flicker 0.3s ease-in-out 0.1s infinite alternate; }
+.animate-rotate-2s { animation: rotate 2s linear infinite; }
+.animate-rotate-custom { animation: rotate 2s linear infinite; }
+.animate-ripple { animation: ripple 1.5s ease-out infinite; }
+.animate-ripple-03 { animation: ripple 1.5s ease-out 0.3s infinite; }
+
+/* Pulse variations */
+.animate-pulse-1s { animation: pulse 1s ease-in-out infinite; }
+.animate-pulse-2s { animation: pulse 2s ease-in-out infinite; }
+.animate-pulse-2s-03 { animation: pulse 2s ease-in-out 0.3s infinite; }
+.animate-pulse-2s-05 { animation: pulse 2s ease-in-out 0.5s infinite; }
+.animate-pulse-15s { animation: pulse 1.5s ease-in-out infinite; }
+.animate-pulse-15s-02 { animation: pulse 1.5s ease-in-out 0.2s infinite; }
+.animate-pulse-15s-03 { animation: pulse 1.5s ease-in-out 0.3s infinite; }
+.animate-pulse-15s-04 { animation: pulse 1.5s ease-in-out 0.4s infinite; }
+.animate-pulse-15s-05 { animation: pulse 1.5s ease-in-out 0.5s infinite; }
+.animate-pulse-15s-06 { animation: pulse 1.5s ease-in-out 0.6s infinite; }
+.animate-pulse-15s-08 { animation: pulse 1.5s ease-in-out 0.8s infinite; }
+
+/* Scale in variations */
+.animate-scale-in-05 { animation: scaleIn 0.5s ease-out forwards; }
+.animate-scale-in-05-01 { animation: scaleIn 0.5s ease-out 0.1s both; }
+.animate-scale-in-05-02 { animation: scaleIn 0.5s ease-out 0.2s both; }
+.animate-scale-in-05-03 { animation: scaleIn 0.5s ease-out 0.3s both; }
+.animate-scale-in-05-04 { animation: scaleIn 0.5s ease-out 0.4s both; }
+.animate-scale-in-05-05 { animation: scaleIn 0.5s ease-out 0.5s both; }
+.animate-scale-in-05-06 { animation: scaleIn 0.5s ease-out 0.6s both; }
+.animate-scale-in-05-07 { animation: scaleIn 0.5s ease-out 0.7s both; }
+.animate-scale-in-06 { animation: scaleIn 0.6s ease-out forwards; }
+.animate-scale-in-06-02 { animation: scaleIn 0.6s ease-out 0.2s both; }
+.animate-scale-in-06-03 { animation: scaleIn 0.6s ease-out 0.3s both; }
+.animate-scale-in-08 { animation: scaleIn 0.8s ease-out forwards; }
+.animate-scale-in-08-02 { animation: scaleIn 0.8s ease-out 0.2s both; }
+.animate-scale-in-08-04 { animation: scaleIn 0.8s ease-out 0.4s both; }
+.animate-scale-in-1s { animation: scaleIn 1s ease-out forwards; }
+
+/* Fade in variations */
+.animate-fade-in-05 { animation: fadeIn 0.5s ease-out 0.1s both; }
+.animate-fade-in-05-00 { animation: fadeIn 0.5s ease-out forwards; }
+.animate-fade-in-05-02 { animation: fadeIn 0.5s ease-out 0.2s both; }
+.animate-fade-in-05-03 { animation: fadeIn 0.5s ease-out 0.3s both; }
+.animate-fade-in-05-04 { animation: fadeIn 0.5s ease-out 0.4s both; }
+.animate-fade-in-05-05 { animation: fadeIn 0.5s ease-out 0.5s both; }
+.animate-fade-in-05-07 { animation: fadeIn 0.5s ease-out 0.7s both; }
+.animate-fade-in-05-08 { animation: fadeIn 0.5s ease-out 0.8s both; }
+.animate-fade-in-05-09 { animation: fadeIn 0.5s ease-out 0.9s both; }
+
+/* Bloom animation */
+.animate-bloom-1s { animation: bloom 1s ease-out forwards; }
 
 /* Animation delays */
 .delay-100 { animation-delay: 0.1s; }
