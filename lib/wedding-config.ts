@@ -110,7 +110,7 @@ export const weddingConfig = {
       id: "coming-soon-1",
       name: "Upcoming Ceremony",
       icon: "party",
-      iconSrc: null, // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloaderv2.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "upcomingEvent1",
       date: "To be announced",
