@@ -1,0 +1,24 @@
+# This is your updated configuration file for local Llama 3.1
+name: Local Development Config
+version: 1.0.0
+schema: v1
+
+# Define which models can be used
+# https://docs.continue.dev/customization/models
+models:
+  - name: Llama 3.1 8B (Local)
+    provider: ollama
+    model: llama3.1:8b
+    apiBase: http://localhost:11434
+    # Optional: sets this model for both chat and inline editing
+    roles:
+      - chat
+      - edit
+
+  # Keeping the qwen2.5-coder as a secondary option if you have it downloaded
+  - uses: ollama/llama3.1:8b
+
+# MCP Servers that Continue can access
+# https://docs.continue.dev/customization/mcp-tools
+mcpServers:
+  - uses: anthropic/memory-mcp
