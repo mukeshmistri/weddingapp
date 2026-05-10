@@ -40,8 +40,8 @@ export function NavDots() {
             activeSection === section ? "active" : ""
           }`}
           style={{
-            border: "1.5px solid var(--gold)",
-            background: activeSection === section ? "var(--gold)" : "transparent",
+            border: "1.5px solid var(--gold-accent)",
+            background: activeSection === section ? "var(--gold-accent)" : "transparent",
           }}
           aria-label={`Scroll to ${section}`}
         />

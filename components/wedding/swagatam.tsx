@@ -71,10 +71,10 @@ export function Swagatam({ isVisible, onEnter }: SwagatamProps) {
         </div>
 
         {/* Title */}
-        <h1 className="font-display text-4xl mb-1" style={{ color: "var(--gold)" }}>
+        <h1 className="font-display text-4xl mb-1" style={{ color: "var(--gold-accent)" }}>
           Swaagatam!
         </h1>
-        <p className="font-sans-alt text-[0.5rem] tracking-[3px] uppercase mb-3.5 opacity-50" style={{ color: "var(--gl)" }}>
+        <p className="font-sans-alt text-[0.5rem] tracking-[3px] uppercase mb-3.5 opacity-50" style={{ color: "var(--gold-border)" }}>
           Welcome to the celebration of love
         </p>
 
@@ -82,7 +82,7 @@ export function Swagatam({ isVisible, onEnter }: SwagatamProps) {
         <div
           className="w-[140px] h-[140px] mx-auto mb-3.5 rounded-full overflow-hidden relative"
           style={{
-            border: "2.5px solid var(--gold)",
+            border: "2.5px solid var(--gold-accent)",
             boxShadow: "0 0 28px rgba(201,169,110,.18)",
           }}
         >
@@ -121,7 +121,7 @@ export function Swagatam({ isVisible, onEnter }: SwagatamProps) {
           onClick={handleEnter}
           className="inline-block px-8 py-2.5 rounded-full font-accent text-[0.6rem] tracking-[2px] uppercase text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
           style={{
-            background: "linear-gradient(135deg, var(--gold), var(--gd))",
+            background: "linear-gradient(135deg, var(--gold-accent), var(--gold-accent))",
             boxShadow: "0 4px 20px rgba(201,169,110,.28)",
           }}
         >

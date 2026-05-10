@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { invitationConfig } from "@/lib/invitation.config";
 
 interface Petal {
   id: number;
@@ -23,18 +24,22 @@ export function RosePetals({ isActive }: RosePetalsProps) {
   const [petals, setPetals] = useState<Petal[]>([]);
 
   const createPetal = useCallback((): Petal => {
-    const colors = ["#E85070", "#D44060", "#C83858", "#F06080", "#E04868"];
+    const colors = invitationConfig.petals.colors;
+    const isLeftSide = Math.random() < 0.5;
+    const left = isLeftSide
+      ? Math.random() * (invitationConfig.petals.leftRangePercent[1] - invitationConfig.petals.leftRangePercent[0]) + invitationConfig.petals.leftRangePercent[0]
+      : Math.random() * (invitationConfig.petals.rightRangePercent[1] - invitationConfig.petals.rightRangePercent[0]) + invitationConfig.petals.rightRangePercent[0];
     return {
       id: Date.now() + Math.random(),
-      left: Math.random() * 100,
+      left,
       color: colors[Math.floor(Math.random() * colors.length)],
-      width: Math.random() * 4 + 7,
-      height: Math.random() * 4 + 8,
+      width: Math.random() * invitationConfig.petals.width.variance + invitationConfig.petals.width.base,
+      height: Math.random() * invitationConfig.petals.height.variance + invitationConfig.petals.height.base,
       rotation: Math.random() * 360,
-      duration: Math.random() * 5 + 5,
-      delay: Math.random() * 2,
-      d1: Math.random() * 55 - 28,
-      d2: Math.random() * 35 - 18,
+      duration: Math.random() * invitationConfig.petals.duration.variance + invitationConfig.petals.duration.base,
+      delay: Math.random() * invitationConfig.petals.delay.variance,
+      d1: Math.random() * invitationConfig.petals.drift.d1Variance - invitationConfig.petals.drift.d1Offset,
+      d2: Math.random() * invitationConfig.petals.drift.d2Variance - invitationConfig.petals.drift.d2Offset,
     };
   }, []);
 
@@ -42,17 +47,17 @@ export function RosePetals({ isActive }: RosePetalsProps) {
     if (!isActive) return;
 
     // Initial petals
-    const initialPetals = Array.from({ length: 12 }, () => createPetal());
+    const initialPetals = Array.from({ length: invitationConfig.petals.initialCount }, () => createPetal());
     setPetals(initialPetals);
 
     // Continuously add petals
     const interval = setInterval(() => {
       setPetals((prev) => {
         // Remove old petals to prevent memory issues
-        const newPetals = prev.length > 20 ? prev.slice(-15) : prev;
+        const newPetals = prev.length > invitationConfig.petals.maxPetals ? prev.slice(-invitationConfig.petals.keepRecentCount) : prev;
         return [...newPetals, createPetal()];
       });
-    }, 1000);
+    }, invitationConfig.petals.spawnIntervalMs);
 
     return () => clearInterval(interval);
   }, [isActive, createPetal]);
@@ -60,7 +65,7 @@ export function RosePetals({ isActive }: RosePetalsProps) {
   if (!isActive) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+    <div className={invitationConfig.petals.containerClass}>
       {petals.map((petal) => (
         <div
           key={petal.id}

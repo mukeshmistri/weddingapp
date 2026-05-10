@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useCallback } from "react";
-import { weddingConfig } from "@/lib/wedding-config";
+import { invitationConfig } from "@/lib/invitation.config";
 
 interface MusicButtonProps {
   isPlaying: boolean;
@@ -12,8 +12,8 @@ export function MusicButton({ isPlaying, onToggle }: MusicButtonProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio(weddingConfig.audio.bgMusic);
-    audioRef.current.loop = true;
+    audioRef.current = new Audio(invitationConfig.music.source);
+    audioRef.current.loop = invitationConfig.music.loop;
     
     return () => {
       if (audioRef.current) {
@@ -40,16 +40,16 @@ export function MusicButton({ isPlaying, onToggle }: MusicButtonProps) {
   return (
     <button
       onClick={handleToggle}
-      className={`fixed top-3 right-3 z-[2000] w-[38px] h-[38px] rounded-full flex items-center justify-center text-base cursor-pointer transition-all duration-300 backdrop-blur-md hover:scale-105 ${
+      className={`${invitationConfig.music.button.className} ${
         isPlaying ? "animate-music-pulse" : ""
       }`}
       style={{
-        background: "rgba(255,255,255,.88)",
-        border: "1.5px solid var(--gold)",
+        background: invitationConfig.music.button.background,
+        border: invitationConfig.music.button.border,
       }}
       aria-label={isPlaying ? "Pause music" : "Play music"}
     >
-      {isPlaying ? "🔊" : "🎵"}
+      {isPlaying ? invitationConfig.emojis.music.playing : invitationConfig.emojis.music.paused}
     </button>
   );
 }
