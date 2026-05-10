@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { Preloader } from "@/components/wedding/preloader";
 import { Envelope } from "@/components/wedding/envelope";
-import { Swagatam } from "@/components/wedding/swagatam";
 import { Curtain } from "@/components/wedding/curtain";
 import { MusicButton } from "@/components/wedding/music-button";
 import { NavDots } from "@/components/wedding/nav-dots";
@@ -12,11 +11,12 @@ import { RosePetals } from "@/components/wedding/rose-petals";
 import { HeroSection } from "@/components/wedding/hero-section";
 import { SaveDateSection } from "@/components/wedding/save-date-section";
 import { EventsSection } from "@/components/wedding/events-section";
+import { invitationConfig } from "@/lib/invitation.config";
 
 import { RSVPSection } from "@/components/wedding/rsvp-section";
 import { Footer } from "@/components/wedding/footer";
 
-type AppStage = "preloader" | "envelope" | "swagatam" | "curtain" | "main";
+type AppStage = "preloader" | "envelope" | "curtain" | "main";
 
 export default function WeddingInvitation() {
   const [stage, setStage] = useState<AppStage>("preloader");
@@ -30,15 +30,11 @@ export default function WeddingInvitation() {
   }, []);
 
   const handleEnvelopeComplete = useCallback(() => {
-    setStage("swagatam");
+    setStage("curtain");
   }, []);
 
   const handlePlayMusic = useCallback(() => {
     setIsMusicPlaying(true);
-  }, []);
-
-  const handleEnterCelebration = useCallback(() => {
-    setStage("curtain");
   }, []);
 
   const handleCurtainComplete = useCallback(() => {
@@ -66,16 +62,13 @@ export default function WeddingInvitation() {
         onPlayMusic={handlePlayMusic}
       />
 
-      {/* Swagatam (Welcome) */}
-      <Swagatam isVisible={stage === "swagatam"} onEnter={handleEnterCelebration} />
-
       {/* Curtain */}
       <Curtain isOpen={stage === "curtain" || stage === "main"} onComplete={handleCurtainComplete} />
 
       {/* Main content - always rendered but opacity controlled */}
       <div className={`transition-opacity duration-1000 ${showMainContent ? "opacity-100" : "opacity-0"}`}>
         {/* Rose petals */}
-        <RosePetals isActive={showMainContent} />
+        <RosePetals isActive={showMainContent && invitationConfig.petals.enabled} />
 
         {/* Music button */}
         <MusicButton isPlaying={isMusicPlaying} onToggle={handleToggleMusic} />

@@ -1,89 +1,53 @@
 "use client";
 
-import { useState } from "react";
 import { weddingConfig } from "@/lib/wedding-config";
-import Image from "next/image";
+import { invitationConfig } from "@/lib/invitation.config";
+import { useResolvedArt } from "@/lib/custom-art";
 
 interface FloatingCoupleProps {
   isVisible: boolean;
 }
 
 export function FloatingCouple({ isVisible }: FloatingCoupleProps) {
-  const [brideError, setBrideError] = useState(false);
-  const [groomError, setGroomError] = useState(false);
   const { bride, groom } = weddingConfig.couple;
+  const { src: brideSrc, onError: onBrideError, entry: brideEntry } = useResolvedArt("brideIllustration");
+  const { src: groomSrc, onError: onGroomError, entry: groomEntry } = useResolvedArt("groomIllustration");
 
   return (
     <>
-      {/* Floating couple characters */}
+      {/* Small corner accents */}
       <div
-        className={`fixed bottom-2 left-0 right-0 z-[150] flex justify-between items-end px-1.5 pointer-events-none transition-opacity duration-1000 ${
+        className={`${invitationConfig.avatars.position.containerClass} ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
         {/* Bride */}
-        <div className="w-[62px] h-[80px] relative animate-bounce-float">
-          {!brideError ? (
-            <Image
-              src={weddingConfig.images.bride}
+        <div className={`${brideEntry.size?.className ?? `${invitationConfig.avatars.size.widthClass} ${invitationConfig.avatars.size.heightClass}`} relative ${invitationConfig.avatars.opacityClass}`}>
+          {brideSrc ? (
+            <img
+              src={brideSrc}
               alt={bride}
-              fill
-              className="object-contain object-bottom drop-shadow-sm"
-              onError={() => setBrideError(true)}
+              className="w-full h-full object-contain object-bottom"
+              onError={onBrideError}
             />
           ) : (
-            <div className="text-3xl text-center">👰</div>
+            <div className="w-4 h-4 rounded-full mx-auto mt-4" style={{ background: "rgba(107, 100, 94, 0.35)" }} />
           )}
-          <span
-            className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 font-sans-alt text-[0.55rem] font-bold px-1.5 py-0.5 rounded-lg whitespace-nowrap tracking-wide"
-            style={{ color: "#1a1a1a", background: "rgba(255,255,255,.9)" }}
-          >
-            {bride}
-          </span>
         </div>
 
         {/* Groom */}
-        <div className="w-[62px] h-[80px] relative animate-bounce-float" style={{ animationDelay: "0.5s" }}>
-          {!groomError ? (
-            <Image
-              src={weddingConfig.images.groom}
+        <div className={`${groomEntry.size?.className ?? `${invitationConfig.avatars.size.widthClass} ${invitationConfig.avatars.size.heightClass}`} relative ${invitationConfig.avatars.opacityClass}`}>
+          {groomSrc ? (
+            <img
+              src={groomSrc}
               alt={groom}
-              fill
-              className="object-contain object-bottom drop-shadow-sm"
-              onError={() => setGroomError(true)}
+              className="w-full h-full object-contain object-bottom"
+              onError={onGroomError}
             />
           ) : (
-            <div className="text-3xl text-center">🤵</div>
+            <div className="w-4 h-4 rounded-full mx-auto mt-4" style={{ background: "rgba(107, 100, 94, 0.35)" }} />
           )}
-          <span
-            className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 font-sans-alt text-[0.55rem] font-bold px-1.5 py-0.5 rounded-lg whitespace-nowrap tracking-wide"
-            style={{ color: "#1a1a1a", background: "rgba(255,255,255,.9)" }}
-          >
-            {groom}
-          </span>
         </div>
-      </div>
-
-      {/* Hearts trail */}
-      <div
-        className={`fixed bottom-[25px] left-0 right-0 h-[50px] z-[149] pointer-events-none flex items-center justify-center gap-1.5 transition-opacity duration-1000 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {["💕", "💗", "💖", "❤️", "💖", "💗", "💕"].map((heart, i) => (
-          <span
-            key={i}
-            className="animate-hearts-pulse"
-            style={{
-              color: "#E8A0B0",
-              opacity: i === 3 ? 0.5 : 0.3,
-              fontSize: i === 3 ? "0.85rem" : i === 2 || i === 4 ? "0.65rem" : i === 1 || i === 5 ? "0.5rem" : "0.4rem",
-              animationDelay: `${i * 0.2}s`,
-            }}
-          >
-            {heart}
-          </span>
-        ))}
       </div>
     </>
   );

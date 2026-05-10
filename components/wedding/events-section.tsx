@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { weddingConfig, type Event } from "@/lib/wedding-config";
+import { invitationConfig } from "@/lib/invitation.config";
 import { RotateCcw } from "lucide-react";
 import {
   MusicNoteIcon,
@@ -82,7 +83,7 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
             className="absolute top-3 right-3 px-2 py-1 rounded-full flex items-center gap-1 animate-pulse"
             style={{ background: "rgba(201,169,110,.1)" }}
           >
-            <span className="text-[0.5rem] font-sans-alt tracking-wider uppercase" style={{ color: "var(--gold)" }}>
+            <span className="text-[0.5rem] font-sans-alt tracking-wider uppercase" style={{ color: "var(--gold-accent)" }}>
               Tap for dress code
             </span>
             <TapFingerIcon className="w-4 h-4" />
@@ -91,19 +92,19 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
           {/* Main content */}
           <div className="px-4 py-6 pt-10 text-center h-full flex flex-col justify-center">
             <span className="block mb-3">{ICONS[event.icon] || <SparkleIcon className="w-14 h-14" />}</span>
-            <h3 className="font-heading text-2xl mb-1" style={{ color: "var(--td)" }}>
+            <h3 className="font-heading text-2xl mb-1" style={{ color: "var(--charcoal)" }}>
               {event.name}
             </h3>
-            <p className="font-accent text-[0.65rem] tracking-[2px] mb-3" style={{ color: "var(--gold)" }}>
+            <p className="font-accent text-[0.65rem] tracking-[2px] mb-3" style={{ color: "var(--gold-accent)" }}>
               {event.date}
             </p>
-            <p className="font-sans-alt text-[0.72rem] mb-1" style={{ color: "var(--tm)" }}>
+            <p className="font-sans-alt text-[0.72rem] mb-1" style={{ color: "var(--charcoal-light)" }}>
               {event.time}
             </p>
-            <p className="font-body text-lg font-semibold mt-2 mb-1" style={{ color: "var(--td)" }}>
+            <p className="font-body text-lg font-semibold mt-2 mb-1" style={{ color: "var(--charcoal)" }}>
               {event.venue}
             </p>
-            <p className="text-[0.75rem] leading-snug mb-4 px-2" style={{ color: "var(--tl)" }}>
+            <p className="text-[0.75rem] leading-snug mb-4 px-2" style={{ color: "var(--charcoal-muted)" }}>
               {event.address}
             </p>
 
@@ -111,8 +112,8 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
             <div className="flex justify-center">
               <button
                 onClick={(e) => openMap(e, event.address)}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans-alt text-[0.55rem] tracking-[2px] uppercase transition-all duration-300 cursor-pointer hover:bg-[var(--gold)] hover:text-white group"
-                style={{ background: "transparent", border: "1px solid var(--gold)", color: "var(--gold)" }}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans-alt text-[0.55rem] tracking-[2px] uppercase transition-all duration-300 cursor-pointer hover:bg-[var(--gold-accent)] hover:text-white group"
+                style={{ background: "transparent", border: "1px solid var(--gold-accent)", color: "var(--gold-accent)" }}
               >
                 <MapPinIcon className="w-3.5 h-3.5 group-hover:[&_path]:fill-white transition-all" />
                 View Map
@@ -146,18 +147,18 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
             className="absolute top-3 right-3 px-2 py-1 rounded-full flex items-center gap-1"
             style={{ background: "rgba(201,169,110,.15)" }}
           >
-            <RotateCcw className="w-3 h-3" style={{ color: "var(--gold)" }} />
-            <span className="text-[0.5rem] font-sans-alt tracking-wider uppercase" style={{ color: "var(--gold)" }}>
+            <RotateCcw className="w-3 h-3" style={{ color: "var(--gold-accent)" }} />
+            <span className="text-[0.5rem] font-sans-alt tracking-wider uppercase" style={{ color: "var(--gold-accent)" }}>
               Tap to flip back
             </span>
           </div>
 
           {/* Dress code content */}
           <div className="px-5 py-6 pt-10 text-center h-full flex flex-col">
-            <h3 className="font-heading text-xl mb-1" style={{ color: "var(--td)" }}>
+            <h3 className="font-heading text-xl mb-1" style={{ color: "var(--charcoal)" }}>
               Dress Code
             </h3>
-            <p className="font-sans-alt text-[0.55rem] tracking-[2px] uppercase mb-3" style={{ color: "var(--gold)" }}>
+            <p className="font-sans-alt text-[0.55rem] tracking-[2px] uppercase mb-3" style={{ color: "var(--gold-accent)" }}>
               {event.name}
             </p>
 
@@ -187,11 +188,11 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <DressWomanIcon className="w-5 h-5" />
-                  <span className="font-sans-alt text-[0.55rem] font-bold tracking-[1.5px] uppercase" style={{ color: "var(--gold)" }}>
+                  <span className="font-sans-alt text-[0.55rem] font-bold tracking-[1.5px] uppercase" style={{ color: "var(--gold-accent)" }}>
                     For Women
                   </span>
                 </div>
-                <p className="font-body text-[0.82rem] leading-relaxed pl-7" style={{ color: "var(--tm)" }}>
+                <p className="font-body text-[0.82rem] leading-relaxed pl-7" style={{ color: "var(--charcoal-light)" }}>
                   {event.dressCode.suggestions.women}
                 </p>
               </div>
@@ -203,11 +204,11 @@ function EventCard({ event, isVisible }: { event: Event; isVisible: boolean }) {
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <DressManIcon className="w-5 h-5" />
-                  <span className="font-sans-alt text-[0.55rem] font-bold tracking-[1.5px] uppercase" style={{ color: "var(--gold)" }}>
+                  <span className="font-sans-alt text-[0.55rem] font-bold tracking-[1.5px] uppercase" style={{ color: "var(--gold-accent)" }}>
                     For Men
                   </span>
                 </div>
-                <p className="font-body text-[0.82rem] leading-relaxed pl-7" style={{ color: "var(--tm)" }}>
+                <p className="font-body text-[0.82rem] leading-relaxed pl-7" style={{ color: "var(--charcoal-light)" }}>
                   {event.dressCode.suggestions.men}
                 </p>
               </div>
@@ -250,14 +251,14 @@ export function EventsSection() {
       style={{ background: "linear-gradient(180deg, var(--ivory), #F8F0E8, var(--ivory))" }}
     >
       <div className="max-w-[800px] w-full text-center relative z-[2]">
-        <h2 className="font-display text-5xl mb-1.5 reveal-element" style={{ color: "var(--td)" }}>
+        <h2 className="font-display text-5xl mb-1.5 reveal-element" style={{ color: "var(--charcoal)" }}>
           Wedding Events
         </h2>
-        <p className="font-sans-alt text-[0.58rem] tracking-[3px] uppercase mb-4" style={{ color: "var(--gold)" }}>
+        <p className="font-sans-alt text-[0.58rem] tracking-[3px] uppercase mb-4" style={{ color: "var(--gold-accent)" }}>
           Join Us in Celebration
         </p>
-        <div className="text-center my-2 mb-3 text-base tracking-[8px] opacity-30" style={{ color: "var(--gold)" }}>
-          ✦ ✦ ✦
+        <div className="text-center my-2 mb-3 text-base tracking-[8px] opacity-30" style={{ color: "var(--gold-accent)" }}>
+          {invitationConfig.emojis.events.ornament}
         </div>
 
         {/* Tap instruction */}
@@ -266,7 +267,7 @@ export function EventsSection() {
           style={{ background: "rgba(201,169,110,.08)", border: "1px dashed rgba(201,169,110,.3)" }}
         >
           <TapFingerIcon className="w-5 h-5 animate-bounce-subtle" />
-          <p className="font-body text-sm" style={{ color: "var(--tm)" }}>
+          <p className="font-body text-sm" style={{ color: "var(--charcoal-light)" }}>
             Tap any card to see the dress code
           </p>
         </div>
@@ -293,25 +294,25 @@ export function EventsSection() {
             border: "1px solid rgba(201,169,110,.12)",
           }}
         >
-          <h3 className="font-heading text-base font-bold mb-3" style={{ color: "var(--td)" }}>
+          <h3 className="font-heading text-base font-bold mb-3" style={{ color: "var(--charcoal)" }}>
             General Tips
           </h3>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-left">
             <div className="flex items-center gap-2">
               <SparkleIcon className="w-4 h-4" />
-              <p className="font-body text-[0.75rem]" style={{ color: "var(--tm)" }}>
+              <p className="font-body text-[0.75rem]" style={{ color: "var(--charcoal-light)" }}>
                 Traditional attire preferred
               </p>
             </div>
             <div className="flex items-center gap-2">
               <HeelIcon className="w-4 h-4" />
-              <p className="font-body text-[0.75rem]" style={{ color: "var(--tm)" }}>
+              <p className="font-body text-[0.75rem]" style={{ color: "var(--charcoal-light)" }}>
                 Comfortable footwear
               </p>
             </div>
             <div className="flex items-center gap-2">
               <FlowerSmallIcon className="w-4 h-4" />
-              <p className="font-body text-[0.75rem]" style={{ color: "var(--tm)" }}>
+              <p className="font-body text-[0.75rem]" style={{ color: "var(--charcoal-light)" }}>
                 Avoid white or off-white
               </p>
             </div>
