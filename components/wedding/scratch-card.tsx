@@ -178,6 +178,33 @@ export function ScratchCard({ id, value, label, onReveal, isRevealed }: ScratchC
           onTouchEnd={() => setIsDrawing(false)}
         />
 
+        {!isRevealed && (
+          <div className="absolute inset-0 z-[3] pointer-events-none flex items-center justify-center">
+            <div
+              className="absolute inset-[16%] rounded-full"
+              style={{
+                border: "1.5px dashed rgba(184,150,90,.55)",
+                boxShadow: "inset 0 0 10px rgba(255,255,255,.35)",
+              }}
+            />
+            <div className="text-center animate-float-gentle" style={{ lineHeight: 1 }}>
+              <div className="text-xl">🖐️</div>
+              <p
+                className="font-sans-alt uppercase font-semibold"
+                style={{
+                  fontSize: "0.46rem",
+                  letterSpacing: "1.6px",
+                  color: "#A8844A",
+                  textShadow: "0 1px 3px rgba(255,255,255,0.7)",
+                  marginTop: "5px",
+                }}
+              >
+                Rub Here
+              </p>
+            </div>
+          </div>
+        )}
+
       </div>
 
       <p className="font-sans-alt uppercase font-semibold" style={{ fontSize: "0.85rem", letterSpacing: "2px", color: "#6B5B4A" }}>

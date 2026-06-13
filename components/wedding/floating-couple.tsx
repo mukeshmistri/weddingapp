@@ -1,54 +1,67 @@
 "use client";
 
-import { weddingConfig } from "@/lib/wedding-config";
-import { invitationConfig } from "@/lib/invitation.config";
-import { useResolvedArt } from "@/lib/custom-art";
-
 interface FloatingCoupleProps {
   isVisible: boolean;
 }
 
 export function FloatingCouple({ isVisible }: FloatingCoupleProps) {
-  const { bride, groom } = weddingConfig.couple;
-  const { src: brideSrc, onError: onBrideError, entry: brideEntry } = useResolvedArt("brideIllustration");
-  const { src: groomSrc, onError: onGroomError, entry: groomEntry } = useResolvedArt("groomIllustration");
-
   return (
-    <>
-      {/* Small corner accents */}
+    <div
+      className={`fixed inset-x-0 bottom-4 z-[1100] pointer-events-none transition-opacity duration-1000 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      {/* Scroll up cue */}
       <div
-        className={`${invitationConfig.avatars.position.containerClass} ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
+        className="absolute left-2 bottom-0 flex flex-col items-center gap-1.5 px-2.5 py-2 rounded-xl opacity-95"
+        style={{
+          background: "rgba(255, 248, 236, 0.92)",
+          border: "1px solid rgba(201,169,110,0.48)",
+          boxShadow: "0 6px 16px rgba(107,45,60,0.2)",
+        }}
       >
-        {/* Bride */}
-        <div className={`${brideEntry.size?.className ?? `${invitationConfig.avatars.size.widthClass} ${invitationConfig.avatars.size.heightClass}`} relative ${invitationConfig.avatars.opacityClass}`}>
-          {brideSrc ? (
-            <img
-              src={brideSrc}
-              alt={bride}
-              className="w-full h-full object-contain object-bottom"
-              onError={onBrideError}
-            />
-          ) : (
-            <div className="w-4 h-4 rounded-full mx-auto mt-4" style={{ background: "rgba(107, 100, 94, 0.35)" }} />
-          )}
-        </div>
-
-        {/* Groom */}
-        <div className={`${groomEntry.size?.className ?? `${invitationConfig.avatars.size.widthClass} ${invitationConfig.avatars.size.heightClass}`} relative ${invitationConfig.avatars.opacityClass}`}>
-          {groomSrc ? (
-            <img
-              src={groomSrc}
-              alt={groom}
-              className="w-full h-full object-contain object-bottom"
-              onError={onGroomError}
-            />
-          ) : (
-            <div className="w-4 h-4 rounded-full mx-auto mt-4" style={{ background: "rgba(107, 100, 94, 0.35)" }} />
-          )}
-        </div>
+        <span className="text-2xl animate-bounce-subtle" style={{ color: "#6B2D3C", lineHeight: 1 }}>
+          ↑
+        </span>
+        <span
+          className="font-sans-alt text-[0.52rem] uppercase"
+          style={{
+            color: "#6B2D3C",
+            fontWeight: 700,
+            letterSpacing: "1.7px",
+            writingMode: "vertical-rl",
+            textOrientation: "mixed",
+          }}
+        >
+          Scroll Up
+        </span>
       </div>
-    </>
+
+      {/* Scroll down cue */}
+      <div
+        className="absolute right-2 bottom-0 flex flex-col items-center gap-1.5 px-2.5 py-2 rounded-xl opacity-95"
+        style={{
+          background: "rgba(255, 248, 236, 0.92)",
+          border: "1px solid rgba(201,169,110,0.48)",
+          boxShadow: "0 6px 16px rgba(107,45,60,0.2)",
+        }}
+      >
+        <span className="text-2xl animate-bounce-subtle" style={{ color: "#6B2D3C", lineHeight: 1 }}>
+          ↓
+        </span>
+        <span
+          className="font-sans-alt text-[0.52rem] uppercase"
+          style={{
+            color: "#6B2D3C",
+            fontWeight: 700,
+            letterSpacing: "1.7px",
+            writingMode: "vertical-rl",
+            textOrientation: "mixed",
+          }}
+        >
+          Scroll Down
+        </span>
+      </div>
+    </div>
   );
 }

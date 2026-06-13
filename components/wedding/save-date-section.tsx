@@ -188,6 +188,21 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
                 : `${remainingCount} seal${remainingCount > 1 ? "s" : ""} left`}
             </p>
 
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+              style={{
+                background: "rgba(255,255,255,.62)",
+                border: "1px solid rgba(184,150,90,.35)",
+                boxShadow: "0 4px 14px rgba(80,40,20,.08)",
+              }}
+            >
+              <span className="animate-bounce-subtle" style={{ fontSize: "0.95rem" }}>👆</span>
+              <p className="font-sans-alt uppercase font-semibold" style={{ fontSize: "0.5rem", letterSpacing: "1.7px", color: "#9A7642" }}>
+                Scratch all 3 circles
+              </p>
+              <span className="animate-bounce-subtle" style={{ fontSize: "0.95rem" }}>👆</span>
+            </div>
+
             <div className="flex justify-center items-start flex-wrap" style={{ gap: "24px", maxWidth: "420px" }}>
               <ScratchCard
                 id="day"
