@@ -17,7 +17,7 @@ export const customArtConfig = {
     },
   },
   cardEmblem: {
-    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov3.png",
+    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov6.png",
     defaultSrc: "/art/mandap-icon.svg",
     size: {
       className: "w-8 h-8",
@@ -45,7 +45,7 @@ export const customArtConfig = {
     },
   },
   envelopeIcon: {
-    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov3.png",
+    customSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov6.png",
     defaultSrc: null,
     size: {
       className: "w-5 h-5",

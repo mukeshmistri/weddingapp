@@ -13,7 +13,7 @@ export const weddingConfig = {
     fullAddress: "Anthurium Adventure Resort & Agro Park, Pune",
   },
   images: {
-    couplePhoto: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDImage.png",
+    couplePhoto: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDlogov6.png",
     //bride: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Deekshav1.png",
     //groom: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Mukeshv1.png",
     heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage1v2.png",
