@@ -2,16 +2,21 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { weddingConfig } from "@/lib/wedding-config";
-import { invitationConfig } from "@/lib/invitation.config";
 import { ScratchCard } from "./scratch-card";
 import { Countdown } from "./countdown";
-import { PointingFingerIcon, SparkleIcon, RefreshIcon } from "./wedding-icons";
+import { RefreshIcon } from "./wedding-icons";
 
 interface SaveDateSectionProps {
   onAllRevealed: () => void;
 }
 
+// Adjust this to move content up/down on the page.
+// 0% = top, 50% = center, lower % = higher on page.
+const CONTENT_TOP = "40%";
+
 export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
+  const weddingDate = weddingConfig.date;
+  const customBackgroundImage = weddingConfig.images.saveDateBackground;
   const [revealed, setRevealed] = useState({
     day: false,
     month: false,
@@ -22,6 +27,32 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
 
   const allRevealed = revealed.day && revealed.month && revealed.year;
   const remainingCount = [revealed.day, revealed.month, revealed.year].filter((r) => !r).length;
+
+  const dayValue = new Intl.DateTimeFormat("en-US", { day: "2-digit" }).format(weddingDate);
+  const monthValue = new Intl.DateTimeFormat("en-US", { month: "long" }).format(weddingDate);
+  const yearValue = String(weddingDate.getFullYear());
+
+  const dayNumber = weddingDate.getDate();
+  const dayMod10 = dayNumber % 10;
+  const dayMod100 = dayNumber % 100;
+  const ordinal =
+    dayMod10 === 1 && dayMod100 !== 11
+      ? "st"
+      : dayMod10 === 2 && dayMod100 !== 12
+        ? "nd"
+        : dayMod10 === 3 && dayMod100 !== 13
+          ? "rd"
+          : "th";
+
+  const dynamicDateDisplayFull = `${dayNumber}${ordinal} ${monthValue}, ${yearValue}`;
+
+  const millisUntilWedding = weddingDate.getTime() - Date.now();
+  const daysUntilWedding = Math.max(0, Math.ceil(millisUntilWedding / (1000 * 60 * 60 * 24)));
+  const contextualMessage = allRevealed
+    ? daysUntilWedding === 0
+      ? "Today is the day. See you at the celebration."
+      : `${daysUntilWedding} day${daysUntilWedding === 1 ? "" : "s"} to go for our royal celebration.`
+    : "Reveal all three seals to unlock the wedding date.";
 
   const handleReveal = useCallback((card: "day" | "month" | "year") => {
     setRevealed((prev) => ({ ...prev, [card]: true }));
@@ -46,146 +77,141 @@ export function SaveDateSection({ onAllRevealed }: SaveDateSectionProps) {
   return (
     <section
       id="save-date"
-      className="min-h-screen flex items-center justify-center px-2.5 py-[50px] pb-[108px] relative overflow-hidden"
-      style={{ background: invitationConfig.decorations.saveDate.background }}
+      className="relative overflow-hidden"
+      style={{ height: "100vh" }}
     >
-      {/* Dot pattern background - reduced density by 50% */}
-      <div
-        className={`absolute inset-0 ${invitationConfig.decorations.saveDate.dotPattern.opacityClass} pointer-events-none`}
-        style={{
-          backgroundImage: invitationConfig.decorations.saveDate.dotPattern.image,
-          backgroundSize: invitationConfig.decorations.saveDate.dotPattern.size,
-        }}
-      />
-
-      {/* Frame */}
-      <div
-        className="absolute top-[22px] bottom-[22px] left-[22px] right-[22px] rounded-2xl pointer-events-none z-[1]"
-        style={{ border: invitationConfig.decorations.saveDate.frame.outerBorder }}
-      >
-        <span
-          className="absolute inset-2 rounded-xl"
-          style={{ border: invitationConfig.decorations.saveDate.frame.innerBorder }}
-        />
+      {/* Layer 1 – background */}
+      <div className="absolute inset-0 z-[0] pointer-events-none">
+        {customBackgroundImage ? (
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${customBackgroundImage}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(180deg, #F7F1E8 0%, #F3EEE7 45%, #F8F0E8 100%)" }}
+          />
+        )}
       </div>
 
-      {/* Content */}
-      <div className="text-center w-full max-w-[580px] relative z-[2] mx-auto">
-        <h2 className="font-display text-5xl md:text-6xl leading-tight mb-1 font-bold" style={{ color: "var(--charcoal)", fontWeight: "800", letterSpacing: "-0.5px" }}>
+      {/* Layer 2 – content */}
+      <div
+        className="absolute z-[2] text-center"
+        style={{
+          top: CONTENT_TOP,
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "100%",
+          maxWidth: "520px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: allRevealed ? "12px" : "20px",
+          padding: "20px",
+          paddingBottom: "120px",
+        }}
+      >
+        <h2
+          className="font-display leading-tight font-bold"
+          style={{ fontSize: "clamp(2.5rem, 4vw, 3.2rem)", color: "#2B2116", letterSpacing: "-0.5px" }}
+        >
           Save the Date
         </h2>
-        <p className="font-sans-alt text-[0.52rem] tracking-[3px] uppercase mb-2 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
-          Scratch each seal to reveal
-        </p>
 
-        {/* Ornament */}
-        <div className="flex items-center justify-center gap-2 mb-7 opacity-35">
-          <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent))" }} />
-          <div className="w-[5px] h-[5px] rotate-45 rounded-sm" style={{ background: "var(--gold-accent)" }} />
-          <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, var(--gold-accent), transparent)" }} />
-        </div>
-
-        {/* Instructions */}
-        {!allRevealed && (
-          <div
-            className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 mb-6"
-            style={{ background: "rgba(232,160,184,.06)", border: "1px solid rgba(232,160,184,.12)" }}
-          >
-            <span className="inline-flex animate-wiggle">
-              <PointingFingerIcon className="w-5 h-5" aria={{ label: "Tap here" }} />
-            </span>
-            <span className="text-[0.48rem] tracking-[2px] uppercase font-semibold" style={{ color: "var(--charcoal)", opacity: "0.85" }}>
-              {remainingCount === 3
-                ? "Scratch all 3 seals!"
-                : `${remainingCount} seal${remainingCount > 1 ? "s" : ""} left!`}
-            </span>
-            <span className="inline-flex">
-              <SparkleIcon className="w-4 h-4" aria={{ label: "Sparkle" }} />
-            </span>
-          </div>
-        )}
-
-        {/* Scratch cards */}
-        <div
-          className={`flex justify-center items-start gap-4 flex-wrap mx-auto mb-6 max-w-[420px] transition-all duration-700 ${
-            allRevealed ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
-          }`}
+        <p
+          className="font-sans-alt uppercase font-semibold"
           style={{
-            transform: allRevealed ? "translateY(-20px)" : "translateY(0)",
-            transitionProperty: "opacity, transform",
+            fontSize: allRevealed ? "0.52rem" : "0.9rem",
+            letterSpacing: allRevealed ? "1px" : "3px",
+            color: allRevealed ? "#6B5B4A" : "#B8965A",
           }}
         >
-          <div id="scratch-day">
-            <ScratchCard
-              id="day"
-              value="20"
-              label="Day"
-              onReveal={() => handleReveal("day")}
-              isRevealed={revealed.day}
-            />
-          </div>
-          <div id="scratch-month">
-            <ScratchCard
-              id="month"
-              value="July"
-              label="Month"
-              onReveal={() => handleReveal("month")}
-              isRevealed={revealed.month}
-            />
-          </div>
-          <div id="scratch-year">
-            <ScratchCard
-              id="year"
-              value="2026"
-              label="Year"
-              onReveal={() => handleReveal("year")}
-              isRevealed={revealed.year}
-            />
-          </div>
-        </div>
+          {allRevealed ? contextualMessage : "Scratch each seal to reveal"}
+        </p>
 
-        {/* Revealed date display - single authoritative date */}
-        {showFullDate && (
-          <div
-            className="mx-auto my-6 text-center animate-reveal-scale transition-all duration-700"
-            style={{
-              transform: allRevealed ? "translateY(0)" : "translateY(30px)",
-              opacity: allRevealed ? 1 : 0,
-            }}
-          >
-            <div className="flex items-center justify-center gap-1.5 mb-3 opacity-30">
-              <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent))" }} />
-              <div className="w-1 h-1 rotate-45 rounded-sm" style={{ background: "var(--gold-accent)" }} />
-              <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, var(--gold-accent), transparent)" }} />
-            </div>
-            <p className="font-display text-5xl md:text-6xl mb-2 font-bold" style={{ color: "var(--green-accent)", fontWeight: "800", letterSpacing: "-0.5px" }}>
-              {weddingConfig.dateDisplayFull}
+        {allRevealed ? (
+          <>
+            <p
+              className="font-display font-bold"
+              style={{
+                fontSize: "clamp(2.4rem, 10vw, 3.5rem)",
+                color: "#3F6F5A",
+                fontWeight: "600",
+                letterSpacing: "-0.5px",
+                opacity: showFullDate ? 1 : 0,
+                transition: "opacity 0.5s",
+              }}
+            >
+              {dynamicDateDisplayFull}
             </p>
-            <div className="flex items-center justify-center gap-1.5 opacity-30">
-              <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent))" }} />
-              <div className="w-1 h-1 rotate-45 rounded-sm" style={{ background: "var(--gold-accent)" }} />
-              <div className="w-[45px] h-[1px]" style={{ background: "linear-gradient(90deg, var(--gold-accent), transparent)" }} />
+
+            <div
+              style={{
+                width: "100%",
+                opacity: showCountdown ? 1 : 0,
+                transition: "opacity 0.5s",
+              }}
+            >
+              <Countdown targetDate={weddingDate} />
             </div>
-          </div>
-        )}
 
-        {/* Countdown */}
-        {showCountdown && (
-          <div className="mt-8 transition-all duration-700 animate-reveal-scale">
-            <Countdown targetDate={weddingConfig.date} />
-          </div>
-        )}
+            <button
+              onClick={resetAll}
+              className="inline-flex items-center gap-1.5 rounded-full font-sans-alt uppercase font-semibold cursor-pointer transition-opacity duration-300 opacity-70 hover:opacity-100"
+              style={{
+                fontSize: "0.42rem",
+                letterSpacing: "2px",
+                padding: "6px 16px",
+                background: "transparent",
+                border: "1.5px solid rgba(184,150,90,.5)",
+                color: "#B8965A",
+              }}
+            >
+              <RefreshIcon className="w-4 h-4" aria={{ label: "Refresh" }} />
+              Reveal Again
+            </button>
+          </>
+        ) : (
+          <>
+            <p
+              className="font-sans-alt uppercase font-semibold"
+              style={{ fontSize: "0.95rem", letterSpacing: "2px", color: "#6B5B4A" }}
+            >
+              {remainingCount === 3
+                ? "Scratch all 3 seals!"
+                : `${remainingCount} seal${remainingCount > 1 ? "s" : ""} left`}
+            </p>
 
-        {/* Reset button */}
-        {allRevealed && (
-          <button
-            onClick={resetAll}
-            className="mt-6 px-5 py-1.5 rounded-full font-sans-alt text-[0.42rem] tracking-[2px] uppercase cursor-pointer transition-all duration-300 opacity-75 hover:opacity-100 inline-flex items-center gap-1.5 animate-reveal-scale font-semibold"
-            style={{ background: "transparent", border: "1.5px solid rgba(201,169,110,.35)", color: "var(--gold-accent)" }}
-          >
-            <RefreshIcon className="w-4 h-4" aria={{ label: "Refresh" }} />
-            Reveal Again
-          </button>
+            <div className="flex justify-center items-start flex-wrap" style={{ gap: "24px", maxWidth: "420px" }}>
+              <ScratchCard
+                id="day"
+                value={dayValue}
+                label="Day"
+                onReveal={() => handleReveal("day")}
+                isRevealed={revealed.day}
+              />
+              <ScratchCard
+                id="month"
+                value={monthValue}
+                label="Month"
+                onReveal={() => handleReveal("month")}
+                isRevealed={revealed.month}
+              />
+              <ScratchCard
+                id="year"
+                value={yearValue}
+                label="Year"
+                onReveal={() => handleReveal("year")}
+                isRevealed={revealed.year}
+              />
+            </div>
+          </>
         )}
       </div>
     </section>

@@ -40,13 +40,13 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: "Wedding Invitation - Deeksha & Mukesh",
+  title: "Wedding Invitation - Mukesh & Deeksha",
   description:
-    "You are cordially invited to celebrate the wedding of Deeksha",
-  keywords: ["wedding", "invitation", "Deeksha", "Mukesh", "celebration", "love"],
-  authors: [{ name: "Deeksha & Mukesh" }],
+    "You are cordially invited to celebrate the wedding of Mukesh & Deeksha",
+  keywords: ["wedding", "invitation", "Mukesh", "Deeksha", "celebration", "love"],
+  authors: [{ name: "Mukesh & Deeksha" }],
   openGraph: {
-    title: "Wedding Invitation - Deeksha & Mukesh",
+    title: "Wedding Invitation - Mukesh & Deeksha",
     description: "Join us in celebrating our special day!",
     type: "website",
   },

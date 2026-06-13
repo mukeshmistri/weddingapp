@@ -18,7 +18,7 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
   const [sparkles, setSparkles] = useState<Array<{ id: number; left: number; color: string; duration: number; delay: number; size: number }>>([]);
   const { src: emblemSrc, onError: onEmblemError, entry: emblemEntry } = useResolvedArt("cardEmblem");
 
-  const { bride, groom } = weddingConfig.couple;
+  const { groom, bride } = weddingConfig.couple;
 
   useEffect(() => {
     if (isVisible) {
@@ -132,9 +132,9 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
             </p>
 
             <div className="font-display text-[1.7rem] text-white leading-tight font-bold">
-              {bride}
-              <span className="block text-lg my-[1px]" style={{ color: "var(--gold-accent)" }}>&</span>
               {groom}
+              <span className="block text-lg my-[1px]" style={{ color: "var(--gold-accent)" }}>&</span>
+              {bride}
             </div>
 
             <div className="w-[70px] h-[1px] my-2.5" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent), transparent)" }} />
@@ -180,9 +180,9 @@ export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) 
             </p>
 
             <div className="font-display text-[1.65rem] leading-tight font-bold" style={{ color: "var(--charcoal)", fontWeight: "700" }}>
-              {bride}
-              <span className="block text-base" style={{ color: "var(--gold-accent)" }}>&</span>
               {groom}
+              <span className="block text-base" style={{ color: "var(--gold-accent)" }}>&</span>
+              {bride}
             </div>
 
             <div className="w-[60px] h-[1px] my-2" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent), transparent)" }} />

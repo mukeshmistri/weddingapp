@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { invitationConfig } from "@/lib/invitation.config";
 
 interface CountdownProps {
   targetDate: Date;
@@ -67,11 +66,11 @@ export function Countdown({ targetDate }: CountdownProps) {
           className={`font-heading text-4xl font-bold leading-none transition-all duration-250 ${
             changed ? "scale-105" : ""
           }`}
-          style={{ color: changed ? "var(--gold-accent)" : "var(--charcoal)" }}
+          style={{ color: changed ? "#B8965A" : "#2B2116" }}
         >
           {value}
         </span>
-        <span className="font-sans-alt text-[0.35rem] tracking-[2px] uppercase mt-1 opacity-45" style={{ color: "var(--gold-accent)" }}>
+        <span className="font-sans-alt text-[0.35rem] tracking-[2px] uppercase mt-1" style={{ fontSize: "11px", color: "#A08D73" }}>
           {label}
         </span>
       </div>
@@ -79,24 +78,14 @@ export function Countdown({ targetDate }: CountdownProps) {
   };
 
   return (
-    <div className="mt-5 animate-counter-in">
-      <div className="text-center mb-3.5">
-        <span className="text-3xl block mb-1 animate-bounce-subtle">{invitationConfig.emojis.countdown.celebrate}</span>
-        <h3 className="font-display text-2xl mb-0.5" style={{ color: "var(--charcoal)" }}>
-          {isComplete ? "The Day Has Arrived!" : "The Countdown Has Begun!"}
-        </h3>
-        <p className="font-sans-alt text-[0.4rem] tracking-[2px] uppercase opacity-50" style={{ color: "var(--gold-accent)" }}>
-          {isComplete ? "Celebrating love" : 'Until we say "I Do"'}
-        </p>
-      </div>
-
-      <div className="flex justify-center gap-1 flex-wrap">
+    <div className="w-full">
+      <div className="flex justify-center gap-1.5 flex-wrap">
         <TimeBlock value={timeLeft.days} label="Days" prevValue={prevTimeRef.current.days} />
-        <span className="font-heading text-2xl self-center opacity-20" style={{ color: "var(--gold-accent)" }}>:</span>
+        <span className="font-heading text-2xl self-center" style={{ color: "#C9A56B", opacity: 0.5 }}>:</span>
         <TimeBlock value={timeLeft.hours} label="Hours" prevValue={prevTimeRef.current.hours} />
-        <span className="font-heading text-2xl self-center opacity-20" style={{ color: "var(--gold-accent)" }}>:</span>
+        <span className="font-heading text-2xl self-center" style={{ color: "#C9A56B", opacity: 0.5 }}>:</span>
         <TimeBlock value={timeLeft.minutes} label="Minutes" prevValue={prevTimeRef.current.minutes} />
-        <span className="font-heading text-2xl self-center opacity-20" style={{ color: "var(--gold-accent)" }}>:</span>
+        <span className="font-heading text-2xl self-center" style={{ color: "#C9A56B", opacity: 0.5 }}>:</span>
         <TimeBlock value={timeLeft.seconds} label="Seconds" prevValue={prevTimeRef.current.seconds} />
       </div>
     </div>
