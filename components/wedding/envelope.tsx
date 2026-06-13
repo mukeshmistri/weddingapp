@@ -14,7 +14,7 @@ interface EnvelopeProps {
 export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) {
   const [isGone, setIsGone] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
-  const [heroSrc, setHeroSrc] = useState("https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov2.png");
+  const [heroSrc, setHeroSrc] = useState("https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov3.png");
   const [petals, setPetals] = useState<Array<{ id: number; left: number; duration: number; delay: number; drift: string }>>([]);
   const [sparkles, setSparkles] = useState<Array<{ id: number; left: number; top: number; duration: number; delay: number; size: number }>>([]);
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
