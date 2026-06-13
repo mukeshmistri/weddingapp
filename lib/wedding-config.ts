@@ -17,9 +17,9 @@ export const weddingConfig = {
     bride: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/D2.png",
     groom: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/M2.png",
     heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InviteFirstPageV3.png",
-    saveDateBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/AppPage2.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
-    eventsBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage3.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
-    footerBackground: null, // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
+    saveDateBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage2.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
+    eventsBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage3v2.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
+    footerBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage4.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
   },
   audio: {
     bgMusic: "https://github.com/mukeshmistri/wedding-music/raw/refs/heads/main/WeddingMusicDemo.mp3",
