@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { weddingConfig } from "@/lib/wedding-config";
 import { invitationConfig } from "@/lib/invitation.config";
-import { useResolvedArt } from "@/lib/custom-art";
-import { EnvelopeIcon, SparkleIcon, NamasteIcon } from "./wedding-icons";
 
 interface EnvelopeProps {
   isVisible: boolean;
@@ -13,197 +12,174 @@ interface EnvelopeProps {
 }
 
 export function Envelope({ isVisible, onComplete, onPlayMusic }: EnvelopeProps) {
-  const [phase, setPhase] = useState<"closed" | "flipping" | "revealed">("closed");
   const [isGone, setIsGone] = useState(false);
-  const [sparkles, setSparkles] = useState<Array<{ id: number; left: number; color: string; duration: number; delay: number; size: number }>>([]);
-  const { src: emblemSrc, onError: onEmblemError, entry: emblemEntry } = useResolvedArt("cardEmblem");
-
-  const { groom, bride } = weddingConfig.couple;
+  const [isEntering, setIsEntering] = useState(false);
+  const [heroSrc, setHeroSrc] = useState("https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDLogov2.png");
+  const [petals, setPetals] = useState<Array<{ id: number; left: number; duration: number; delay: number; drift: string }>>([]);
+  const [sparkles, setSparkles] = useState<Array<{ id: number; left: number; top: number; duration: number; delay: number; size: number }>>([]);
+  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
 
   useEffect(() => {
     if (isVisible) {
-      const colors = ["rgba(201,169,110,.4)", "rgba(255,215,0,.3)", "rgba(255,255,255,.18)"];
-      const newSparkles = Array.from({ length: 22 }, (_, i) => ({
+      setIsEntering(true);
+
+      const nextPetals = Array.from({ length: 10 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        duration: Math.random() * 5 + 3,
-        delay: Math.random() * 4,
-        size: Math.random() * 3 + 1,
+        duration: 7 + Math.random() * 5,
+        delay: Math.random() * 3,
+        drift: `${(Math.random() * 80 - 40).toFixed(0)}px`,
       }));
-      setSparkles(newSparkles);
+
+      const nextSparkles = Array.from({ length: 12 }, (_, i) => ({
+        id: i,
+        left: 6 + Math.random() * 88,
+        top: 8 + Math.random() * 76,
+        duration: 2 + Math.random() * 2,
+        delay: Math.random() * 2.2,
+        size: 2 + Math.random() * 3,
+      }));
+
+      setPetals(nextPetals);
+      setSparkles(nextSparkles);
+
+      const enterTimer = window.setTimeout(() => setIsEntering(false), 1600);
+      return () => window.clearTimeout(enterTimer);
     }
   }, [isVisible]);
 
-  const handleTap = useCallback(() => {
-    if (phase === "closed") {
-      setPhase("flipping");
-      onPlayMusic();
-    }
-  }, [phase, onPlayMusic]);
-
-  const handleFlipEnd = useCallback(() => {
-    if (phase !== "flipping") return;
-
-    setPhase("revealed");
+  const triggerRipple = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const ripple = {
+      id: Date.now(),
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+    setRipples((prev) => [...prev, ripple]);
     window.setTimeout(() => {
-      setIsGone(true);
-      window.setTimeout(onComplete, 520);
-    }, 900);
-  }, [phase, onComplete]);
+      setRipples((prev) => prev.filter((item) => item.id !== ripple.id));
+    }, 700);
+  }, []);
+
+  const handleEnter = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    triggerRipple(event);
+    onPlayMusic();
+    setIsGone(true);
+    window.setTimeout(onComplete, 560);
+  }, [onComplete, onPlayMusic, triggerRipple]);
 
   if (!isVisible && !isGone) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-[9000] flex items-center justify-center overflow-hidden transition-all duration-800
+      className={`fixed inset-0 z-[9000] overflow-hidden transition-all duration-700
         ${isGone ? "opacity-0 invisible pointer-events-none" : "opacity-100 visible"}`}
-      style={{ background: "linear-gradient(135deg, var(--rd), var(--rm))" }}
     >
-      {/* Sparkles background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {sparkles.map((s) => (
+      <div className="invite-wrapper">
+        <div className="ambient-background" />
+        <div className="ambient-vignette" />
+        <div className="ambient-rays" />
+
+        <div className="invite-petals" aria-hidden="true">
+          {petals.map((p) => (
+            <span
+              key={p.id}
+              className="invite-petal"
+              style={{
+                left: `${p.left}%`,
+                animationDuration: `${p.duration}s`,
+                animationDelay: `${p.delay}s`,
+                ["--petal-drift" as string]: p.drift,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="invite-sparkles" aria-hidden="true">
+          {sparkles.map((s) => (
+            <span
+              key={s.id}
+              className="invite-sparkle"
+              style={{
+                left: `${s.left}%`,
+                top: `${s.top}%`,
+                width: `${s.size}px`,
+                height: `${s.size}px`,
+                animationDuration: `${s.duration}s`,
+                animationDelay: `${s.delay}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        <section className={`hero-section ${isEntering ? "hero-entering" : ""}`}>
+          <div className="mandala-wrapper">
+            <div className="ring ring-1" />
+            <div className="ring ring-2" />
+            <div className="ring ring-3" />
+
+            <button type="button" className="hero-couple-hitbox" onClick={triggerRipple} aria-label="Couple illustration">
+              <Image
+                src={heroSrc}
+                alt="Couple Illustration"
+                width={300}
+                height={300}
+                className="hero-couple"
+                onError={() => setHeroSrc(weddingConfig.images.couplePhoto)}
+                priority
+              />
+
+              {ripples.map((ripple) => (
+                <span
+                  key={ripple.id}
+                  className="hero-ripple"
+                  style={{ left: ripple.x, top: ripple.y }}
+                />
+              ))}
+            </button>
+          </div>
+
+          <div className="hero-invite-copy">
+            <p className="hero-invite-family">Our Families</p>
+            <p className="hero-invite-statement">
+              joyfully invite you to witness<br />a union written in the stars
+            </p>
+            <span className="hero-invite-ornament">— A Wedding Celebration —</span>
+          </div>
+        </section>
+
+        <div className={`cta-section ${isEntering ? "cta-entering" : ""}`}>
+          <p className="enter-click-here">Click Here</p>
           <div
-            key={s.id}
-            className="absolute rounded-full"
-            style={{
-              width: `${s.size}px`,
-              height: `${s.size}px`,
-              left: `${s.left}%`,
-              background: s.color,
-              animation: `fade-up ${s.duration}s linear infinite`,
-              animationDelay: `${s.delay}s`,
-            }}
+            className="cta-shimmer"
+            aria-hidden="true"
+          />
+          <button
+            type="button"
+            className="enter-btn"
+            onClick={handleEnter}
+            onMouseDown={triggerRipple}
+          >
+            Enter Celebration
+          </button>
+        </div>
+      </div>
+      <div className="invite-ripple-layer" aria-hidden="true">
+        {ripples.map((ripple) => (
+          <span
+            key={`bg-${ripple.id}`}
+            className="hero-ripple bg-ripple"
+            style={{ left: `calc(50% + ${ripple.x - 150}px)`, top: `calc(50% + ${ripple.y - 150}px)` }}
           />
         ))}
       </div>
-
-      {/* Envelope wrapper */}
       <div
-        className="text-center z-10 p-3 w-full max-w-[320px]"
-        style={{ perspective: "1000px" }}
-      >
-        {/* Card */}
-        <div
-          className={`w-[240px] h-[330px] mx-auto mb-3 relative max-w-[82vw] envelope-card ${phase !== "closed" ? "flipped" : ""}`}
-          onClick={handleTap}
-          onTransitionEnd={handleFlipEnd}
-          role="button"
-          aria-label="Open invitation"
-        >
-          {/* Front */}
-          <div
-            className="envelope-front rounded-2xl flex flex-col items-center justify-center p-5 overflow-hidden"
-            style={{
-              background: "linear-gradient(145deg, var(--rd), #2D1B20, var(--rd))",
-              border: "2px solid var(--gold-accent)",
-              boxShadow: "0 12px 45px rgba(0,0,0,.5)",
-            }}
-          >
-            {/* Corner decorations */}
-            <span className="absolute top-2 left-2 opacity-35" style={{ color: "var(--gold-accent)" }}>{invitationConfig.emojis.envelope.cornerSparkle}</span>
-            <span className="absolute bottom-2 right-2 opacity-35" style={{ color: "var(--gold-accent)" }}>{invitationConfig.emojis.envelope.cornerSparkle}</span>
+        className={`absolute inset-0 transition-opacity duration-700 pointer-events-none ${
+          isGone ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ background: "radial-gradient(circle at center, rgba(248,241,229,0.2), rgba(234,219,200,0.78))" }}
+      />
 
-            {/* Emblem */}
-            <div
-              className="w-[55px] h-[55px] rounded-full flex items-center justify-center mb-2.5 relative"
-              style={{
-                border: "1.5px solid var(--gold-accent)",
-                boxShadow: "0 0 20px rgba(201,169,110,.12)",
-              }}
-            >
-              <img
-                src={emblemSrc ?? "/art/mandap-icon.svg"}
-                alt="Mandap venue"
-                className={emblemEntry.size?.className ?? "w-8 h-8"}
-                onError={onEmblemError}
-              />
-              <span
-                className="absolute -inset-2 rounded-full animate-spin-cw"
-                style={{
-                  border: "1px dashed rgba(201,169,110,.1)",
-                  animationDuration: "20s",
-                }}
-              />
-            </div>
-
-            <p className="font-accent text-[0.5rem] tracking-[3px] uppercase mb-2 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
-              Wedding Invitation
-            </p>
-
-            <div className="font-display text-[1.7rem] text-white leading-tight font-bold">
-              {groom}
-              <span className="block text-lg my-[1px]" style={{ color: "var(--gold-accent)" }}>&</span>
-              {bride}
-            </div>
-
-            <div className="w-[70px] h-[1px] my-2.5" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent), transparent)" }} />
-
-            <p className="font-sans-alt text-[0.45rem] tracking-[2px] uppercase animate-pulse-opacity font-semibold" style={{ color: "var(--gold-border)", opacity: 0.75 }}>
-              Tap to Begin
-            </p>
-
-            {/* Seal */}
-            <div
-              className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-8 h-8 rounded-full flex items-center justify-center z-10"
-              style={{
-                background: "radial-gradient(circle at 40% 40%, #c0392b, #8b1a1a)",
-                boxShadow: "0 3px 10px rgba(0,0,0,.4)",
-                border: "1.5px solid rgba(201,169,110,.2)",
-              }}
-            >
-              <EnvelopeIcon className="w-5 h-5" aria={{ label: "Love letter" }} />
-            </div>
-          </div>
-
-          {/* Back */}
-          <div
-            className="envelope-back rounded-2xl flex flex-col items-center justify-center p-5 overflow-hidden"
-            style={{
-              background: "linear-gradient(145deg, #fdf8f0, #f5ede0)",
-              border: "2px solid var(--gold-accent)",
-              boxShadow: "0 12px 45px rgba(0,0,0,.5)",
-            }}
-          >
-            <div className="mb-4 animate-glow flex justify-center">
-              <img
-                src={weddingConfig.swagatamIcons.namasteIconSrc || "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloader.png"}
-                alt="Namaste Welcome"
-                className="w-16 h-16 md:w-20 md:h-20 object-contain"
-              />
-            </div>
-            <p className="font-display text-3xl mb-0.5 font-bold" style={{ color: "var(--charcoal)", fontWeight: "800" }}>
-              Swaagatam
-            </p>
-            <p className="font-sans-alt text-[0.38rem] tracking-[2px] uppercase mb-2 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
-              Welcome to our celebration
-            </p>
-
-            <div className="font-display text-[1.65rem] leading-tight font-bold" style={{ color: "var(--charcoal)", fontWeight: "700" }}>
-              {groom}
-              <span className="block text-base" style={{ color: "var(--gold-accent)" }}>&</span>
-              {bride}
-            </div>
-
-            <div className="w-[60px] h-[1px] my-2" style={{ background: "linear-gradient(90deg, transparent, var(--gold-accent), transparent)" }} />
-
-            <p className="font-body text-[0.72rem] italic text-center max-w-[170px] leading-relaxed font-medium" style={{ color: "var(--charcoal)" }}>
-              Opening your invitation...
-            </p>
-
-            <p className="absolute bottom-2 font-sans-alt text-[0.38rem] tracking-[2px] uppercase animate-pulse-opacity font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.9" }}>
-              Please wait
-            </p>
-          </div>
-        </div>
-
-        {/* Instruction */}
-        <p className="font-sans-alt text-[0.6rem] tracking-[2px] uppercase animate-pulse-opacity z-10 flex items-center justify-center gap-1.5 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
-          <SparkleIcon className="w-3 h-3" aria={{ hidden: true }} />
-          {phase === "closed" ? "Tap the card" : phase === "flipping" ? "Welcome unfolding" : "Entering celebration"}
-          <SparkleIcon className="w-3 h-3" aria={{ hidden: true }} />
-        </p>
-      </div>
     </div>
   );
 }

@@ -114,7 +114,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
             "--hero-amp-desktop": invitationConfig.hero.names.ampersandFontSizeDesktop,
           } as React.CSSProperties}
         >
-          Mukesh Saini
+          Mukesh
           <span
             className={`block ${invitationConfig.hero.names.ampersandMarginYClass}`}
             style={{
@@ -125,7 +125,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
           >
             &
           </span>
-          Deeksha Tone
+          Deeksha
         </h1>
       </div>
 

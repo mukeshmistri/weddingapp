@@ -14,8 +14,8 @@ export const weddingConfig = {
   },
   images: {
     couplePhoto: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDImage.png",
-    bride: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/D2.png",
-    groom: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/M2.png",
+    //bride: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Deekshav1.png",
+    //groom: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Mukeshv1.png",
     heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage1v2.png",
     saveDateBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage2v3.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
     eventsBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage3v4.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
@@ -23,6 +23,10 @@ export const weddingConfig = {
   },
   audio: {
     bgMusic: "https://github.com/mukeshmistri/wedding-music/raw/refs/heads/main/WeddingMusicDemo.mp3",
+  },
+  footer: {
+    // 0 = fully transparent overlay, 1 = fully opaque overlay
+    overlayOpacity: 0.9,
   },
   swagatamIcons: {
     namasteIconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloader.png", // set this to a PNG URL or local /art path for custom namaste icon
@@ -33,7 +37,7 @@ export const weddingConfig = {
       id: "engagement",
       name: "Engagement",
       icon: "party",
-      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/preloaderv2.png", // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Engagement.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "upcomingEvent1",
       date: "18th July 2026",
@@ -53,7 +57,7 @@ export const weddingConfig = {
       id: "haldi",
       name: "Haldi",
       icon: "flower",
-      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Haldi.png", // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Haldiv2.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "haldiEvent",
       date: "18th July 2026",
@@ -73,7 +77,7 @@ export const weddingConfig = {
       id: "sangeet",
       name: "Sangeet",
       icon: "musical-note",
-      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/sangeet.png", // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Sangeetv2.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "sangeetEvent",
       date: "18th July 2026",
@@ -93,7 +97,7 @@ export const weddingConfig = {
       id: "akshada",
       name: "Akshada",
       icon: "church",
-      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Wedding.png", // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Akshadav1.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "weddingEvent",
       date: "19th July 2026",
@@ -113,7 +117,7 @@ export const weddingConfig = {
       id: "saptapadi",
       name: "Saptapadi",
       icon: "church",
-      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Wedding.png", // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Saptapadi.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "receptionEvent",
       date: "19th July 2026",
