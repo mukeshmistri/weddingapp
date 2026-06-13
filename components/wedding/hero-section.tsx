@@ -14,7 +14,7 @@ interface HeroSectionProps {
 // verticalShift: positive = down, negative = up (in pixels)
 // horizontalShift: positive = right, negative = left (in pixels)
 const HERO_POSITIONING = {
-  verticalShift: -140,      // Change this to move section up/down
+  verticalShift: -120,      // Change this to move section up/down
   horizontalShift: 0,    // Change this to move section left/right
 };
 
@@ -22,8 +22,8 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
   void isDateRevealed;
   const [parallaxY, setParallaxY] = useState(0);
   const [opacity, setOpacity] = useState(1);
-  const { bride, groom } = weddingConfig.couple;
   const { src: heroEmblemSrc, onError: onHeroEmblemError, entry: heroEmblemEntry } = useResolvedArt("heroEmblem");
+  const heroEmblemClassName = "size" in heroEmblemEntry ? heroEmblemEntry.size.className : "w-10 h-10";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,7 +84,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
             <img
               src={heroEmblemSrc}
               alt="Sacred lotus"
-              className={heroEmblemEntry.size?.className ?? "w-10 h-10"}
+              className={heroEmblemClassName}
               onError={onHeroEmblemError}
             />
           ) : (
@@ -114,7 +114,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
             "--hero-amp-desktop": invitationConfig.hero.names.ampersandFontSizeDesktop,
           } as React.CSSProperties}
         >
-          {groom}
+          Mukesh Saini
           <span
             className={`block ${invitationConfig.hero.names.ampersandMarginYClass}`}
             style={{
@@ -125,7 +125,7 @@ export function HeroSection({ isDateRevealed }: HeroSectionProps) {
           >
             &
           </span>
-          {bride}
+          Deeksha Tone
         </h1>
       </div>
 

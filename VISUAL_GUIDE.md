@@ -383,10 +383,10 @@ Accessibility: aria-label="Ornate wedding heart"
 **Code:**
 ```tsx
 // Before
-Made with ❤️ for Deeksha & Mukesh
+Made with ❤️ for Mukesh & Deeksha
 
 // After
-Made with <HeartIcon className="w-3 h-3" aria={{ label: "Ornate wedding heart" }} /> for Deeksha & Mukesh
+Made with <HeartIcon className="w-3 h-3" aria={{ label: "Ornate wedding heart" }} /> for Mukesh & Deeksha
 ```
 
 **Visual Impact:**

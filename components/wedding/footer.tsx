@@ -5,13 +5,14 @@ import { invitationConfig } from "@/lib/invitation.config";
 import { LotusIcon, FoliageIcon, HeartIcon, ShareIcon } from "./wedding-icons";
 
 export function Footer() {
-  const { bride, groom, hashtag } = weddingConfig.couple;
+  const { groom, bride, hashtag } = weddingConfig.couple;
+  const customBackgroundImage = weddingConfig.images.footerBackground;
 
   const handleShare = async () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${bride} & ${groom} Wedding`,
+          title: `${groom} & ${bride} Wedding`,
           text: invitationConfig.emojis.footer.shareText,
           url: window.location.href,
         });
@@ -31,14 +32,18 @@ export function Footer() {
   return (
     <footer
       className="py-12 px-3 pb-[118px] text-center"
-      style={{ background: "linear-gradient(180deg, var(--ivory), var(--peach))" }}
+      style={{
+        background: customBackgroundImage
+          ? `linear-gradient(180deg, rgba(250,243,231,0.9) 0%, rgba(245,228,214,0.86) 52%, rgba(250,243,231,0.95) 100%), url('${customBackgroundImage}') center/cover no-repeat`
+          : "linear-gradient(180deg, var(--ivory), var(--peach))",
+      }}
     >
       <div className="text-2xl tracking-[8px] opacity-20 mb-4">
         {invitationConfig.emojis.footer.ornament}
       </div>
 
       <h2 className="font-display text-5xl mb-2 font-bold" style={{ color: "var(--charcoal)", fontWeight: "800" }}>
-        {bride} & {groom}
+        {groom} & {bride}
       </h2>
 
       <p className="font-sans-alt text-sm tracking-[2px] mb-4 font-semibold" style={{ color: "var(--gold-accent)", opacity: "0.95" }}>
@@ -79,7 +84,7 @@ export function Footer() {
       </div>
 
       <p className="font-sans-alt text-[0.42rem] tracking-[2px] uppercase mt-3.5 flex items-center justify-center gap-1.5" style={{ color: "var(--charcoal-muted)" }}>
-        Made with <HeartIcon className="w-3 h-3" aria={{ hidden: true }} /> for {bride} & {groom}
+        Made with <HeartIcon className="w-3 h-3" aria={{ hidden: true }} /> for {groom} & {bride}
       </p>
     </footer>
   );

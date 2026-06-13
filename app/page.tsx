@@ -12,8 +12,6 @@ import { HeroSection } from "@/components/wedding/hero-section";
 import { SaveDateSection } from "@/components/wedding/save-date-section";
 import { EventsSection } from "@/components/wedding/events-section";
 import { invitationConfig } from "@/lib/invitation.config";
-
-import { RSVPSection } from "@/components/wedding/rsvp-section";
 import { Footer } from "@/components/wedding/footer";
 
 type AppStage = "preloader" | "envelope" | "curtain" | "main";
@@ -83,7 +81,6 @@ export default function WeddingInvitation() {
         <HeroSection isDateRevealed={isDateRevealed} />
         <SaveDateSection onAllRevealed={handleDateRevealed} />
         <EventsSection />
-        <RSVPSection />
         <Footer />
       </div>
     </main>

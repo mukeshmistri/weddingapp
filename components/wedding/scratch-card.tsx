@@ -180,7 +180,7 @@ export function ScratchCard({ id, value, label, onReveal, isRevealed }: ScratchC
 
       </div>
 
-      <p className="font-sans-alt text-[0.5rem] tracking-[1.5px] uppercase" style={{ color: "var(--charcoal-light)" }}>
+      <p className="font-sans-alt uppercase font-semibold" style={{ fontSize: "0.85rem", letterSpacing: "2px", color: "#6B5B4A" }}>
         {label}
       </p>
     </div>
