@@ -16,7 +16,7 @@ export const weddingConfig = {
     couplePhoto: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/MDImage.png",
     bride: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/D2.png",
     groom: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/M2.png",
-    heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InviteFirstPageV3.png",
+    heroBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage1.png",
     saveDateBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage2v2.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
     eventsBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage3v3.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
     footerBackground: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/InvitePage4v3.png", // set to a raw GitHub URL from https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/
