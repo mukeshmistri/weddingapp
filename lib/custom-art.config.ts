@@ -73,6 +73,13 @@ export const customArtConfig = {
       className: "w-24 h-24",
     },
   },
+  baratEvent: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add barat event illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
   weddingEvent: {
     customSrc: null,
     defaultSrc: null, // PLACEHOLDER: Add wedding ceremony illustration URL
@@ -83,6 +90,13 @@ export const customArtConfig = {
   receptionEvent: {
     customSrc: null,
     defaultSrc: null, // PLACEHOLDER: Add reception event illustration URL
+    size: {
+      className: "w-24 h-24",
+    },
+  },
+  vidaiEvent: {
+    customSrc: null,
+    defaultSrc: null, // PLACEHOLDER: Add vidai event illustration URL
     size: {
       className: "w-24 h-24",
     },

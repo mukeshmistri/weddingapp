@@ -41,7 +41,7 @@ export const weddingConfig = {
       iconSizeClass: "w-24 h-24",
       artworkId: "upcomingEvent1",
       date: "18th July 2026",
-      time: "12 PM Onwards",
+      time: "11 AM Onwards",
       venue: "Banquet Hall",
       address: "Anthurium Adventure Resort & Agro Park, Pune",
       dressCode: {
@@ -61,7 +61,7 @@ export const weddingConfig = {
       iconSizeClass: "w-24 h-24",
       artworkId: "haldiEvent",
       date: "18th July 2026",
-      time: "4 PM Onwards",
+      time: "4:30 PM Onwards",
       venue: "Poolside Deck",
       address: "Anthurium Adventure Resort & Agro Park, Pune",
       dressCode: {
@@ -94,14 +94,34 @@ export const weddingConfig = {
       },
     },
     {
+      id: "barat",
+      name: "Barat",
+      icon: "horse",
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Barat.png", // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "baratEvent",
+      date: "19th July 2026",
+      time: "10 AM Onwards",
+      venue: "Royal Caravan Gateway",
+      address: "Anthurium Adventure Resort & Agro Park, Pune",
+      dressCode: {
+        theme: "Festive Procession",
+        colors: ["#F4D03F", "#C97B7B", "#8E6D4F"],
+        suggestions: {
+          women: "Bright traditional attire with elegant accessories",
+          men: "Festive kurta or sherwani with a matching stole",
+        },
+      },
+    },
+    {
       id: "akshata",
-      name: "Akshata",
+      name: "Akshada",
       icon: "church",
       iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Akshadav1.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "weddingEvent",
       date: "19th July 2026",
-      time: "11:29 AM Onwards",
+      time: "12:24 PM",
       venue: "Poolside Pavilion",
       address: "Anthurium Adventure Resort & Agro Park, Pune",
       dressCode: {
@@ -121,7 +141,7 @@ export const weddingConfig = {
       iconSizeClass: "w-24 h-24",
       artworkId: "receptionEvent",
       date: "19th July 2026",
-      time: "11:29 AM Onwards",
+      time: "01:00 PM Onwards",
       venue: "Banquet Hall",
       address: "Anthurium Adventure Resort & Agro Park, Pune",
       dressCode: {
@@ -130,6 +150,26 @@ export const weddingConfig = {
         suggestions: {
           women: "Traditional saree or festive ethnic wear",
           men: "Sherwani or traditional kurta set",
+        },
+      },
+    },
+    {
+      id: "vidai",
+      name: "Vidai",
+      icon: "home",
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Vidai.png", // set this to a PNG URL or local /art path
+      iconSizeClass: "w-24 h-24",
+      artworkId: "vidaiEvent",
+      date: "19th July 2026",
+      time: "4 PM Onwards",
+      venue: "Dream Home Journey",
+      address: "Pune",
+      dressCode: {
+        theme: "Graceful Farewell",
+        colors: ["#C9A96E", "#1C1510", "#F4D03F"],
+        suggestions: {
+          women: "Elegant traditional attire befitting a loving farewell",
+          men: "Classic kurta or kurta set with a warm finishing touch",
         },
       },
     },

@@ -68,7 +68,7 @@ export function Footer() {
            className="font-body text-[1rem] italic max-w-[380px] mx-auto mb-5 leading-relaxed font-semibold"
            style={{ color: "#3F322A", textShadow: "0 1px 3px rgba(255,255,255,0.45)" }}
          >
-           &ldquo;In all the world, there is no heart for me like yours.&rdquo;
+           &ldquo;Not by chance, but by grace🙏🏼✨&rdquo;
          </p>
 
          <button
