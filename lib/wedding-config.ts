@@ -2,7 +2,7 @@ export const weddingConfig = {
   couple: {
     bride: "Deeksha",
     groom: "Mukesh",
-    hashtag: "#DeeKeshKiShaadi",
+    hashtag: "#MukeshKiDeeksha",
   },
   date: new Date("2026-07-19T10:00:00"),
   dateDisplay: "July 19, 2026",
@@ -115,7 +115,7 @@ export const weddingConfig = {
     },
     {
       id: "akshata",
-      name: "Akshada",
+      name: "Akshata",
       icon: "church",
       iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Akshadav1.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
