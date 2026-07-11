@@ -37,7 +37,7 @@ export const weddingConfig = {
       id: "engagement",
       name: "Engagement",
       icon: "party",
-      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Engagement.png", // set this to a PNG URL or local /art path
+      iconSrc: "https://raw.githubusercontent.com/mukeshmistri/wedding-music/main/Engagementv3.png", // set this to a PNG URL or local /art path
       iconSizeClass: "w-24 h-24",
       artworkId: "upcomingEvent1",
       date: "18th July 2026",
@@ -61,7 +61,7 @@ export const weddingConfig = {
       iconSizeClass: "w-24 h-24",
       artworkId: "haldiEvent",
       date: "18th July 2026",
-      time: "4:30 PM Onwards",
+      time: "3:30 PM Onwards",
       venue: "Poolside Deck",
       address: "Anthurium Adventure Resort & Agro Park, Pune",
       dressCode: {
